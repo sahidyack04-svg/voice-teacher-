@@ -27,12 +27,13 @@ Build an agent-ready website for WWIS. All 8 agent-ready layers implemented in d
 
 **Tech context:** Astro (frontend) + FastAPI (backend) on Render + Supabase — Astro uses static generation by default, meaning all content is present in the initial HTTP response with no JS hydration required.
 
-**Plans:** 3 plans
+**Plans:** 4 plans
 
 Plans:
 - [ ] 01-semantic-foundation-01-PLAN.md — Create semantic layout components (Layout, Header, Footer, PageLayout)
-- [ ] 01-semantic-foundation-02-PLAN.md — Create homepage and key pages (index, about, contact, programs) with Hero and ProgramCard components
-- [ ] 01-semantic-foundation-03-PLAN.md — Create program detail pages (iplay, idiscover, ilead) with ProgramDetail component
+- [ ] 01-semantic-foundation-02-PLAN.md — Create reusable components (Hero with h1, ProgramCard with h3 and alt text)
+- [ ] 01-semantic-foundation-03-PLAN.md — Create key pages (index, about, contact, programs overview)
+- [ ] 01-semantic-foundation-04-PLAN.md — Create program detail pages (iplay, idiscover, ilead) with ProgramDetail component
 
 ---
 
