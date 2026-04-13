@@ -1,46 +1,52 @@
 ---
 phase: 01-semantic-foundation
-plan: 03
+plan: 04
 type: execute
-wave: 2
+wave: 3
 depends_on: ["01-semantic-foundation-01", "01-semantic-foundation-02"]
-files_modified: [src/pages/index.astro, src/pages/about.astro, src/pages/contact.astro, src/pages/programs/index.astro]
+files_modified: [src/pages/programs/iplay.astro, src/pages/programs/idiscover.astro, src/pages/programs/ilead.astro, src/components/ProgramDetail.astro]
 autonomous: true
-requirements: [SEM-03, SEM-04]
+requirements: [SEM-01, SEM-02, SEM-03, SEM-04]
 
 must_haves:
   truths:
-    - "Heading hierarchy is consistent (h1→h6, no skipped levels) on every page"
+    - "All program detail pages use semantic HTML5 elements (header, main, article, nav, footer)"
+    - "Full page content present in initial HTTP response (no JS-gated content)"
+    - "Heading hierarchy consistent (h1→h6, no skipped levels) on every program page"
     - "All meaningful images have descriptive alt text"
   artifacts:
-    - path: "src/pages/index.astro"
-      provides: "Homepage with proper h1 and program sections"
-      contains: "<h1>, <h2>, <h3>"
-    - path: "src/pages/programs/index.astro"
-      provides: "Programs overview page"
-      contains: "<h1>, <h2>, Image with alt"
-    - path: "src/pages/about.astro"
-      provides: "About page with mission/vision sections"
-      contains: "<h1>, <h2>, Image with alt"
-    - path: "src/pages/contact.astro"
-      provides: "Contact page with semantic address element"
-      contains: "<h1>, <h2>, <address>"
+    - path: "src/pages/programs/iplay.astro"
+      provides: "iPlay program detail page"
+      contains: "<h1>, <h2>, <article>, <Image>, alt="
+    - path: "src/pages/programs/idiscover.astro"
+      provides: "iDiscover program detail page"
+      contains: "<h1>, <h2>, <article>, <Image>, alt="
+    - path: "src/pages/programs/ilead.astro"
+      provides: "iLead program detail page"
+      contains: "<h1>, <h2>, <article>, <Image>, alt="
+    - path: "src/components/ProgramDetail.astro"
+      provides: "Reusable program detail section component"
+      contains: "<article>, <h1>, <h2>"
   key_links:
-    - from: "src/pages/index.astro"
-      to: "src/components/Hero.astro"
+    - from: "src/pages/programs/iplay.astro"
+      to: "src/layouts/PageLayout.astro"
       via: "component import"
-      pattern: "import Hero from.*Hero"
-    - from: "src/pages/index.astro"
-      to: "src/programs/ProgramCard.astro"
+      pattern: "import PageLayout from.*PageLayout"
+    - from: "src/pages/programs/iplay.astro"
+      to: "src/components/ProgramDetail.astro"
       via: "component import"
-      pattern: "import ProgramCard from.*ProgramCard"
+      pattern: "import ProgramDetail from.*ProgramDetail"
+    - from: "src/components/ProgramDetail.astro"
+      to: "astro:assets"
+      via: "Image import"
+      pattern: "import.*Image.*from.*astro:assets"
 ---
 
 <objective>
-Create homepage, about, contact, and programs overview pages using Hero and ProgramCard components.
+Create individual program detail pages (iPlay, iDiscover, iLead) with consistent semantic structure.
 
-Purpose: Implement SEM-03 (heading hierarchy) and SEM-04 (alt text) on all key pages.
-Output: index.astro, about.astro, contact.astro, programs/index.astro pages ready for use.
+Purpose: Complete SEM-01 through SEM-04 on all three program detail pages using reusable ProgramDetail component.
+Output: iplay.astro, idiscover.astro, ilead.astro pages with proper semantic HTML, heading hierarchy, and alt text.
 </objective>
 
 <execution_context>
@@ -58,13 +64,35 @@ Output: index.astro, about.astro, contact.astro, programs/index.astro pages read
 <interfaces>
 From 01-RESEARCH.md - Semantic Page Structure:
 ```astro
-<main>
-  <Hero title="Dream school for your child" />
-  <section aria-labelledby="programs-heading">
-    <h2 id="programs-heading">Our Programs</h2>
-    <article><h3>iPlay Program</h3>...</article>
+<section aria-labelledby="programs-heading">
+  <h2 id="programs-heading">Our Programs</h2>
+  <article>
+    <h3>iPlay (Pre-KG to Grade 2)</h3>
+    <p>24 Skills, 3 Languages — brain development focus</p>
+  </article>
+</section>
+```
+
+From 01-RESEARCH.md - Astro Image Component:
+```astro
+import { Image } from 'astro:assets';
+<Image 
+  src={imageSrc} 
+  alt="Descriptive text explaining image content"
+  priority
+/>
+```
+
+From Plan 02 - ProgramCard pattern (similar structure for ProgramDetail):
+```astro
+<article class="program-detail">
+  <Image src={imageSrc} alt={imageAlt} />
+  <h2>{programName}</h2>
+  <section aria-labelledby="features-heading">
+    <h3 id="features-heading">Key Features</h3>
+    <ul>...</ul>
   </section>
-</main>
+</article>
 ```
 </interfaces>
 </context>
@@ -72,254 +100,364 @@ From 01-RESEARCH.md - Semantic Page Structure:
 <tasks>
 
 <task type="auto">
-  <name>Task 1: Create homepage (index.astro) with proper heading hierarchy</name>
-  <files>src/pages/index.astro</files>
+  <name>Task 1: Create ProgramDetail.astro reusable component</name>
+  <files>src/components/ProgramDetail.astro</files>
   <read_first>
-    - src/pages/index.astro (create if exists)
-    - src/layouts/PageLayout.astro (from Plan 01)
-    - src/components/Hero.astro (from Plan 02)
-    - src/programs/ProgramCard.astro (from Plan 02)
+    - src/components/ProgramDetail.astro (create if exists)
+    - src/programs/ProgramCard.astro (from Plan 02, for consistency)
+    - .planning/phases/01-semantic-foundation/01-RESEARCH.md (semantic patterns)
   </read_first>
   <action>
-    Create src/pages/index.astro:
+    Create src/components/ProgramDetail.astro:
     ```astro
     ---
-    import PageLayout from '../layouts/PageLayout.astro';
-    import Hero from '../components/Hero.astro';
-    import ProgramCard from '../programs/ProgramCard.astro';
-    import iplayImg from '../assets/iplay.jpg';
-    import idiscoverImg from '../assets/idiscover.jpg';
-    import ileadImg from '../assets/ilead.jpg';
+    import { Image } from 'astro:assets';
+    
+    interface Props {
+      name: string;
+      gradeRange: string;
+      description: string;
+      imageSrc: string;
+      imageAlt: string;
+      features: string[];
+      skills: string[];
+      ctaText?: string;
+      ctaLink?: string;
+    }
+    
+    const { 
+      name, 
+      gradeRange, 
+      description, 
+      imageSrc, 
+      imageAlt,
+      features,
+      skills,
+      ctaText = "Learn More",
+      ctaLink = "/contact/"
+    } = Astro.props;
     ---
     
-    <PageLayout title="WWIS - Wisdom Wealth International School">
-      <Hero 
-        title="Dream school for your child"
-        subtitle="Nurturing future leaders through innovative education"
+    <article class="program-detail">
+      <Image 
+        src={imageSrc} 
+        alt={imageAlt}
+        width="1200"
+        height="600"
+        priority
       />
       
-      <main>
-        <section aria-labelledby="programs-heading">
-          <h2 id="programs-heading">Our Programs</h2>
-          
-          <div class="program-grid">
-            <ProgramCard 
-              name="iPlay"
-              gradeRange="Pre-KG to Grade 2"
-              description="24 Skills, 3 Languages — brain development focus"
-              imageSrc={iplayImg}
-              imageAlt="Young WWIS students engaged in hands-on learning activity with colorful educational materials"
-            />
-            
-            <ProgramCard 
-              name="iDiscover"
-              gradeRange="Grade 3 to Grade 7"
-              description="24 projects, 8 professional skills — passion discovery"
-              imageSrc={idiscoverImg}
-              imageAlt="Middle school students working together on a science experiment in WWIS laboratory"
-            />
-            
-            <ProgramCard 
-              name="iLead"
-              gradeRange="Grade 8 to Grade 12"
-              description="3 Career programs, 5 Internships — career pathway launch"
-              imageSrc={ileadImg}
-              imageAlt="High school students presenting their capstone project to industry mentors at WWIS"
-            />
-          </div>
-        </section>
-        
-        <section aria-labelledby="cta-heading">
-          <h2 id="cta-heading">Visit WWIS</h2>
-          <p>Experience our campus and meet our dedicated educators.</p>
-          <a href="/contact/" class="cta-button">Book a Visit</a>
-        </section>
-      </main>
-    </PageLayout>
+      <header>
+        <h1>{name}</h1>
+        <p class="grade-range">{gradeRange}</p>
+        <p class="description">{description}</p>
+      </header>
+      
+      <section aria-labelledby="features-heading">
+        <h2 id="features-heading">Key Features</h2>
+        <ul>
+          {features.map((feature) => (
+            <li>{feature}</li>
+          ))}
+        </ul>
+      </section>
+      
+      <section aria-labelledby="skills-heading">
+        <h2 id="skills-heading">Skills Developed</h2>
+        <ul>
+          {skills.map((skill) => (
+            <li>{skill}</li>
+          ))}
+        </ul>
+      </section>
+      
+      <nav class="program-cta">
+        <a href={ctaLink} class="cta-button">{ctaText}</a>
+      </nav>
+    </article>
     ```
   </action>
   <verify>
-    <automated>grep -E '<h1|<h2|<h3|alt=' src/pages/index.astro | head -10</automated>
+    <automated>grep -E '<article|<h1>|<h2>|import.*Image.*from.*astro:assets|alt=' src/components/ProgramDetail.astro | wc -l</automated>
   </verify>
   <done>
     Acceptance criteria:
-    - Page imports PageLayout, Hero, ProgramCard
-    - Heading hierarchy: h1 (in Hero) → h2 (programs-heading, cta-heading) → h3 (in ProgramCards)
-    - All three program cards have descriptive alt text (grep returns 6+ matches for h1/h2/h3/alt)
+    - File uses <article> semantic element
+    - File has <h1> for program name, <h2> for sections (features-heading, skills-heading)
+    - Image component from astro:assets with alt={imageAlt} prop
+    - Props interface includes name, gradeRange, description, imageSrc, imageAlt, features, skills
+    - grep returns 6+ matches
   </done>
 </task>
 
 <task type="auto">
-  <name>Task 2: Create programs overview page (programs/index.astro)</name>
-  <files>src/pages/programs/index.astro</files>
+  <name>Task 2: Create iplay.astro page for Pre-KG to Grade 2 program</name>
+  <files>src/pages/programs/iplay.astro</files>
   <read_first>
-    - src/pages/programs/index.astro (create if exists)
+    - src/pages/programs/iplay.astro (create if exists)
     - src/layouts/PageLayout.astro (from Plan 01)
-    - src/programs/ProgramCard.astro (from Plan 02)
+    - src/components/ProgramDetail.astro (from Task 1)
   </read_first>
   <action>
-    Create src/pages/programs/index.astro:
+    Create src/pages/programs/iplay.astro:
     ```astro
     ---
     import PageLayout from '../../layouts/PageLayout.astro';
-    import ProgramCard from '../../programs/ProgramCard.astro';
-    import iplayImg from '../../assets/iplay.jpg';
-    import idiscoverImg from '../../assets/idiscover.jpg';
-    import ileadImg from '../../assets/ilead.jpg';
+    import ProgramDetail from '../../components/ProgramDetail.astro';
+    import { Image } from 'astro:assets';
+    import iplayHero from '../../assets/iplay-hero.jpg';
+    import iplayActivity1 from '../../assets/iplay-activity1.jpg';
+    import iplayActivity2 from '../../assets/iplay-activity2.jpg';
+    
+    const features = [
+      "Play-based learning approach",
+      "Trilingual exposure (English, Mandarin, Spanish)",
+      "Focus on 24 foundational skills",
+      "Brain development centered curriculum",
+      "Small class sizes (max 15 students)",
+      "Daily outdoor play and physical activity"
+    ];
+    
+    const skills = [
+      "Language and communication",
+      "Social-emotional development",
+      "Fine and gross motor skills",
+      "Early numeracy concepts",
+      "Creative expression",
+      "Problem-solving basics"
+    ];
     ---
     
-    <PageLayout title="Our Programs - WWIS" description="Explore WWIS proprietary programs: iPlay, iDiscover, and iLead">
+    <PageLayout title="iPlay Program - WWIS" description="WWIS iPlay program for Pre-KG to Grade 2: 24 Skills, 3 Languages, brain development focus">
       <main>
-        <h1>Our Proprietary Programs</h1>
+        <ProgramDetail 
+          name="iPlay"
+          gradeRange="Pre-KG to Grade 2"
+          description="24 Skills, 3 Languages — brain development focus"
+          imageSrc={iplayHero}
+          imageAlt="Pre-KG students engaged in colorful play-based learning activity with educational blocks and toys"
+          features={features}
+          skills={skills}
+          ctaText="Schedule a Visit"
+          ctaLink="/contact/"
+        />
         
-        <section aria-labelledby="program-overview">
-          <h2 id="program-overview">Program Overview</h2>
-          <p>WWIS has developed three proprietary programs that showcase our commitment to holistic education.</p>
-        </section>
-        
-        <section aria-labelledby="programs-list">
-          <h2 id="programs-list">Programs by Grade Level</h2>
-          
-          <div class="program-grid">
-            <ProgramCard 
-              name="iPlay"
-              gradeRange="Pre-KG to Grade 2"
-              description="24 Skills, 3 Languages — brain development focus"
-              imageSrc={iplayImg}
-              imageAlt="Pre-KG students learning through play with educational toys at WWIS"
+        <section aria-labelledby="gallery-heading">
+          <h2 id="gallery-heading">iPlay in Action</h2>
+          <div class="image-gallery">
+            <Image 
+              src={iplayActivity1} 
+              alt="iPlay students building towers with colorful blocks during math lesson"
+              width="400"
+              height="300"
             />
-            
-            <ProgramCard 
-              name="iDiscover"
-              gradeRange="Grade 3 to Grade 7"
-              description="24 projects, 8 professional skills — passion discovery"
-              imageSrc={idiscoverImg}
-              imageAlt="Elementary students discovering science through hands-on experiments"
-            />
-            
-            <ProgramCard 
-              name="iLead"
-              gradeRange="Grade 8 to Grade 12"
-              description="3 Career programs, 5 Internships — career pathway launch"
-              imageSrc={ileadImg}
-              imageAlt="High school students leading a community service project"
+            <Image 
+              src={iplayActivity2} 
+              alt="iPlay students practicing language skills through interactive storytelling circle"
+              width="400"
+              height="300"
             />
           </div>
-        </section>
-        
-        <section aria-labelledby="enroll-now">
-          <h2 id="enroll-now">Ready to Enroll?</h2>
-          <p>Contact us today to schedule a visit and learn more about our programs.</p>
-          <a href="/contact/" class="cta-button">Contact Us</a>
         </section>
       </main>
     </PageLayout>
     ```
   </action>
   <verify>
-    <automated>grep -E '<h1>|<h2>|<h3>|alt=' src/pages/programs/index.astro | wc -l</automated>
+    <automated>grep -E '<h1>|<h2>|<article|alt=' src/pages/programs/iplay.astro | wc -l</automated>
   </verify>
   <done>
     Acceptance criteria:
-    - Page has single <h1> element ("Our Proprietary Programs")
-    - Uses <h2> for section headings (program-overview, programs-list, enroll-now)
-    - All ProgramCard images have descriptive alt text (grep returns 7+ matches)
+    - Page imports PageLayout and ProgramDetail
+    - ProgramDetail receives all required props including descriptive imageAlt
+    - Gallery section has <h2> and Images with alt text
+    - grep returns 8+ matches (h1 in ProgramDetail, h2s, article, multiple alt texts)
   </done>
 </task>
 
 <task type="auto">
-  <name>Task 3: Create about.astro and contact.astro pages with semantic structure</name>
-  <files>src/pages/about.astro, src/pages/contact.astro</files>
+  <name>Task 3: Create idiscover.astro page for Grade 3-7 program</name>
+  <files>src/pages/programs/idiscover.astro</files>
   <read_first>
-    - src/pages/about.astro (create if exists)
-    - src/pages/contact.astro (create if exists)
+    - src/pages/programs/idiscover.astro (create if exists)
     - src/layouts/PageLayout.astro (from Plan 01)
+    - src/components/ProgramDetail.astro (from Task 1)
   </read_first>
   <action>
-    Create src/pages/about.astro:
+    Create src/pages/programs/idiscover.astro:
     ```astro
     ---
-    import PageLayout from '../layouts/PageLayout.astro';
+    import PageLayout from '../../layouts/PageLayout.astro';
+    import ProgramDetail from '../../components/ProgramDetail.astro';
     import { Image } from 'astro:assets';
-    import aboutHero from '../assets/about-hero.jpg';
+    import idiscoverHero from '../../assets/idiscover-hero.jpg';
+    import idiscoverLab from '../../assets/idiscover-lab.jpg';
+    import idiscoverProject from '../../assets/idiscover-project.jpg';
+    
+    const features = [
+      "Project-based learning methodology",
+      "8 professional skills development",
+      "24 hands-on projects per year",
+      "Discovery-focused curriculum",
+      "STEM integration across subjects",
+      "Collaborative learning environment"
+    ];
+    
+    const skills = [
+      "Critical thinking and analysis",
+      "Scientific inquiry",
+      "Written and oral communication",
+      "Teamwork and collaboration",
+      "Digital literacy",
+      "Creative problem-solving"
+    ];
     ---
     
-    <PageLayout title="About Us - WWIS" description="Learn about WWIS mission, vision, and commitment to excellence">
+    <PageLayout title="iDiscover Program - WWIS" description="WWIS iDiscover program for Grade 3-7: 24 projects, 8 professional skills, passion discovery">
       <main>
-        <section aria-labelledby="about-heading">
-          <h1 id="about-heading">About Wisdom Wealth International School</h1>
-          
-          <Image 
-            src={aboutHero} 
-            alt="WWIS campus exterior with modern architecture and green landscaping"
-            width="1200"
-            height="400"
-          />
-        </section>
+        <ProgramDetail 
+          name="iDiscover"
+          gradeRange="Grade 3 to Grade 7"
+          description="24 projects, 8 professional skills — passion discovery"
+          imageSrc={idiscoverHero}
+          imageAlt="Grade 5 students conducting a water filtration experiment in WWIS science laboratory"
+          features={features}
+          skills={skills}
+          ctaText="Schedule a Visit"
+          ctaLink="/contact/"
+        />
         
-        <section aria-labelledby="mission-heading">
-          <h2 id="mission-heading">Our Mission</h2>
-          <p>WWIS is committed to nurturing future leaders through innovative education that combines academic excellence with character development.</p>
-        </section>
-        
-        <section aria-labelledby="vision-heading">
-          <h2 id="vision-heading">Our Vision</h2>
-          <p>To be the leading institution in holistic education, preparing students to thrive in a rapidly changing world.</p>
-        </section>
-        
-        <section aria-labelledby="values-heading">
-          <h2 id="values-heading">Core Values</h2>
-          <ul>
-            <li><strong>Integrity:</strong> Building character through honest actions</li>
-            <li><strong>Excellence:</strong> Pursuing the highest standards in all endeavors</li>
-            <li><strong>Respect:</strong> Valuing diversity and individual dignity</li>
-            <li><strong>Innovation:</strong> Embracing creative solutions and modern approaches</li>
-          </ul>
-        </section>
-      </main>
-    </PageLayout>
-    ```
-    
-    Create src/pages/contact.astro:
-    ```astro
-    ---
-    import PageLayout from '../layouts/PageLayout.astro';
-    ---
-    
-    <PageLayout title="Contact Us - WWIS" description="Get in touch with WWIS for admissions inquiries and school visits">
-      <main>
-        <h1>Contact Us</h1>
-        
-        <section aria-labelledby="contact-info">
-          <h2 id="contact-info">Get in Touch</h2>
-          
-          <address>
-            <strong>Wisdom Wealth International School</strong><br />
-            11th Sector, 18th Cross, Morais City, Near Airport<br />
-            Trichy 620007<br /><br />
-            Phone: +91 81246 48888<br />
-            Email: <a href="mailto:rootadmin@wwistrichy.com">rootadmin@wwistrichy.com</a>
-          </address>
-        </section>
-        
-        <section aria-labelledby="hours-heading">
-          <h2 id="hours-heading">Office Hours</h2>
-          <p>Monday – Saturday: 9:00 AM – 5:30 PM<br />
-          Sunday: Closed</p>
+        <section aria-labelledby="gallery-heading">
+          <h2 id="gallery-heading">iDiscover in Action</h2>
+          <div class="image-gallery">
+            <Image 
+              src={idiscoverLab} 
+              alt="Middle school students using microscopes during biology class at WWIS"
+              width="400"
+              height="300"
+            />
+            <Image 
+              src={idiscoverProject} 
+              alt="Students presenting their robotics project to classmates and teachers"
+              width="400"
+              height="300"
+            />
+          </div>
         </section>
       </main>
     </PageLayout>
     ```
   </action>
   <verify>
-    <automated>grep -E '<h1>|<h2>|<address>|alt=' src/pages/about.astro src/pages/contact.astro | wc -l</automated>
+    <automated>grep -E '<h1>|<h2>|<article|alt=' src/pages/programs/idiscover.astro | wc -l</automated>
   </verify>
   <done>
     Acceptance criteria:
-    - about.astro has <h1> and multiple <h2> sections (mission, vision, values)
-    - about.astro has Image with alt text (grep returns 4+ matches)
-    - contact.astro has <h1> and <h2> sections with semantic <address> element
-    - contact.astro has actual WWIS contact info (grep returns 5+ matches)
+    - Page imports PageLayout and ProgramDetail
+    - ProgramDetail receives all required props with descriptive imageAlt
+    - Gallery section has <h2> and Images with alt text
+    - grep returns 8+ matches
+  </done>
+</task>
+
+<task type="auto">
+  <name>Task 4: Create ilead.astro page for Grade 8-12 program</name>
+  <files>src/pages/programs/ilead.astro</files>
+  <read_first>
+    - src/pages/programs/ilead.astro (create if exists)
+    - src/layouts/PageLayout.astro (from Plan 01)
+    - src/components/ProgramDetail.astro (from Task 1)
+  </read_first>
+  <action>
+    Create src/pages/programs/ilead.astro:
+    ```astro
+    ---
+    import PageLayout from '../../layouts/PageLayout.astro';
+    import ProgramDetail from '../../components/ProgramDetail.astro';
+    import { Image } from 'astro:assets';
+    import ileadHero from '../../assets/ilead-hero.jpg';
+    import ileadInternship from '../../assets/ilead-internship.jpg';
+    import ileadCapstone from '../../assets/ilead-capstone.jpg';
+    
+    const features = [
+      "3 career pathway programs",
+      "5 industry internship partnerships",
+      "Capstone project requirement",
+      "College and career readiness",
+      "Leadership development focus",
+      "Real-world work experience"
+    ];
+    
+    const skills = [
+      "Professional communication",
+      "Project management",
+      "Industry-specific technical skills",
+      "Leadership and team management",
+      "Research and analysis",
+      "Entrepreneurial thinking"
+    ];
+    
+    const careerPathways = [
+      "Business and Entrepreneurship",
+      "Science, Technology, and Innovation",
+      "Arts and Media"
+    ];
+    ---
+    
+    <PageLayout title="iLead Program - WWIS" description="WWIS iLead program for Grade 8-12: 3 Career programs, 5 Internships, career pathway launch">
+      <main>
+        <ProgramDetail 
+          name="iLead"
+          gradeRange="Grade 8 to Grade 12"
+          description="3 Career programs, 5 Internships — career pathway launch"
+          imageSrc={ileadHero}
+          imageAlt="High school students presenting their capstone project to industry mentors and parents at WWIS auditorium"
+          features={features}
+          skills={skills}
+          ctaText="Schedule a Visit"
+          ctaLink="/contact/"
+        />
+        
+        <section aria-labelledby="pathways-heading">
+          <h2 id="pathways-heading">Career Pathways</h2>
+          <ul class="pathway-list">
+            {careerPathways.map((pathway) => (
+              <li><strong>{pathway}</strong></li>
+            ))}
+          </ul>
+        </section>
+        
+        <section aria-labelledby="gallery-heading">
+          <h2 id="gallery-heading">iLead in Action</h2>
+          <div class="image-gallery">
+            <Image 
+              src={ileadInternship} 
+              alt="iLead student working alongside engineer at partner company internship site"
+              width="400"
+              height="300"
+            />
+            <Image 
+              src={ileadCapstone} 
+              alt="Senior students showcasing their year-long capstone project at WWIS innovation fair"
+              width="400"
+              height="300"
+            />
+          </div>
+        </section>
+      </main>
+    </PageLayout>
+    ```
+  </action>
+  <verify>
+    <automated>grep -E '<h1>|<h2>|<article|alt=' src/pages/programs/ilead.astro | wc -l</automated>
+  </verify>
+  <done>
+    Acceptance criteria:
+    - Page imports PageLayout and ProgramDetail
+    - ProgramDetail receives all required props with descriptive imageAlt
+    - Career Pathways section has <h2>
+    - Gallery section has <h2> and Images with alt text
+    - grep returns 8+ matches
   </done>
 </task>
 
@@ -327,24 +465,27 @@ From 01-RESEARCH.md - Semantic Page Structure:
 
 <verification>
 Overall phase checks:
-1. All pages have consistent heading hierarchy (h1 → h2 → h3, no skips)
-2. All images have descriptive alt text (enforced by Astro Image component)
-3. No JavaScript required for content rendering
-4. Lighthouse accessibility score >= 90 on all pages
+1. All three program pages use semantic HTML5 elements (article, section, header, nav, main)
+2. Content fully rendered in initial HTTP response (Astro static generation)
+3. Heading hierarchy consistent: h1 (program name) → h2 (sections) → h3 (subsections if any)
+4. All images have descriptive alt text (enforced by Astro Image component)
+5. ProgramDetail component reused across all three pages
 </verification>
 
 <success_criteria>
 Measurable completion:
-- index.astro, about.astro, contact.astro, programs/index.astro all exist
-- grep for heading elements shows proper hierarchy on all pages
+- iplay.astro, idiscover.astro, ilead.astro all exist in src/pages/programs/
+- ProgramDetail.astro component created and used consistently
+- grep for semantic elements returns matches on all pages
 - grep for alt= shows all images have descriptive text
-- npm run build completes without errors (proves alt text enforcement)
+- npm run build completes without errors
 - npm run check passes accessibility checks
 </success_criteria>
 
 <output>
-After completion, create `.planning/phases/01-semantic-foundation/01-semantic-foundation-03-SUMMARY.md` documenting:
-- Pages created (index, about, contact, programs)
+After completion, create `.planning/phases/01-semantic-foundation/01-semantic-foundation-04-SUMMARY.md` documenting:
+- Program pages created (iplay, idiscover, ilead)
+- ProgramDetail component created and reused
 - Heading hierarchy verified on all pages
 - Image alt text verified
 - Build output confirms no accessibility errors
