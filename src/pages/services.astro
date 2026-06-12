@@ -1,0 +1,70 @@
+---
+import PageHero from "../components/PageHero.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import Base from "../layouts/Base.astro";
+import { programs, schoolName, schoolUrl } from "../data/school";
+
+const serviceSchemas = programs.map((program) => ({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: program.name,
+  description: program.description,
+  provider: {
+    "@type": "EducationalOrganization",
+    name: schoolName,
+    url: `${schoolUrl}/`
+  },
+  areaServed: {
+    "@type": "AdministrativeArea",
+    name: program.areaServed
+  },
+  audience: {
+    "@type": "EducationalAudience",
+    educationalRole: "student"
+  }
+}));
+---
+
+<Base
+  title="Programs | iPlay, iDiscover, iLead | WWIS Trichy"
+  description="Explore WWIS programs: iPlay for Pre-KG to Grade 2, iDiscover for Grade 3 to 7, iLead for Grade 8 to 12, Cambridge CIE curriculum, and Individual Learning Plans."
+  pageType="CollectionPage"
+>
+  <PageHero
+    eyebrow="Programs"
+    title="Three pathways, one individual-child focus"
+    text="WWIS structures learning around stage-wise growth: play and communication in early years, discovery and creativity in middle years, and leadership and future readiness in senior years."
+    primaryLabel="Request Admission Guidance"
+    primaryHref="/admissions"
+    secondaryLabel="Book a Campus Visit"
+    secondaryHref="/contact#visit"
+  />
+
+  <section>
+    <SectionHeader
+      eyebrow="Program map"
+      title="Choose the right pathway by grade and learning goal"
+      text="Each program supports a different stage while staying connected to Cambridge international standards and individual learning plans."
+    />
+    <div class="grid grid-2">
+      {programs.map((program) => (
+        <article class="card" id={program.id}>
+          <p class="eyebrow">{program.shortName}</p>
+          <h2>{program.name}</h2>
+          <p><strong>{program.gradeRange}</strong></p>
+          <p>{program.description}</p>
+          <h3>Highlights</h3>
+          <ul class="tag-list">
+            {program.highlights.map((highlight) => <li>{highlight}</li>)}
+          </ul>
+          <h3>Outcomes</h3>
+          <ul>
+            {program.outcomes.map((outcome) => <li>{outcome}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  {serviceSchemas.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
+</Base>

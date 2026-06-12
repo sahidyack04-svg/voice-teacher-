@@ -1,0 +1,78 @@
+---
+import PageHero from "../components/PageHero.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import Base from "../layouts/Base.astro";
+import { brand, contactInfo, languages, schoolName } from "../data/school";
+---
+
+<Base
+  title="About WWIS | Wisdom Wealth International School Trichy"
+  description="Learn about Wisdom Wealth International School in Trichy, its Cambridge CIE learning model, individual child focus, languages, safety, and parent-friendly approach."
+  pageType="AboutPage"
+>
+  <PageHero
+    eyebrow="About WWIS"
+    title="A school built around the individual child"
+    text={`${brand.promise} WWIS brings Cambridge CIE learning, life skills, communication, and future readiness into a structured parent-friendly school experience.`}
+    primaryLabel="Talk to Admissions"
+    primaryHref={`mailto:${contactInfo.email}`}
+    secondaryLabel="Explore Programs"
+    secondaryHref="/services"
+  />
+
+  <section>
+    <div class="grid grid-2">
+      <div>
+        <SectionHeader
+          eyebrow="School identity"
+          title={schoolName}
+          text="WWIS serves families in Trichy with an international learning approach that connects academics, projects, skills, sports, clubs, and individual learning plans."
+        />
+      </div>
+      <article class="card">
+        <h3>What parents should expect</h3>
+        <p>
+          A clear learning journey from early years to senior years, regular parent communication,
+          safe campus systems, and admissions guidance from inquiry through orientation.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="soft-band">
+    <SectionHeader
+      eyebrow="Learning approach"
+      title="International curriculum, practical skills, and confidence"
+      text="The Cambridge CIE curriculum is presented through inquiry, projects, communication, leadership, and student development opportunities."
+    />
+    <div class="grid grid-3">
+      <article class="card">
+        <h3>Critical Thinking</h3>
+        <p>Students are guided to ask better questions, understand concepts, and apply learning beyond memorization.</p>
+      </article>
+      <article class="card">
+        <h3>Communication</h3>
+        <p>English, Tamil, and Hindi support early expression, parent expectations, and confident classroom participation.</p>
+        <ul class="tag-list">
+          {languages.map((language) => <li>{language}</li>)}
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Global Citizenship</h3>
+        <p>Students build awareness, collaboration, leadership, and future-ready habits for international pathways.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <SectionHeader
+      eyebrow="Trust and safety"
+      title="A campus experience parents can evaluate clearly"
+      text="The website highlights official contact details, campus facilities, safety systems, parent resources, and real approved gallery content."
+    />
+    <div class="actions">
+      <a class="button button-primary" href="/facilities">View Facilities</a>
+      <a class="button button-light" href="/contact">Contact WWIS</a>
+    </div>
+  </section>
+</Base>

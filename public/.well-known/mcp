@@ -1,0 +1,5 @@
+{
+  "name": "WWIS MCP Discovery",
+  "endpoint": "https://wwistrichy.com/api/mcp",
+  "transport": "jsonrpc-http"
+}

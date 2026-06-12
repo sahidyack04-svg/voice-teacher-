@@ -1,0 +1,50 @@
+---
+import PageHero from "../components/PageHero.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import Base from "../layouts/Base.astro";
+import { facilities } from "../data/school";
+---
+
+<Base
+  title="Facilities | WWIS Trichy"
+  description="Explore WWIS facilities including smart classrooms, science labs, computer labs, library, sports spaces, transport, medical room, auditorium, play areas, safety systems, and CCTV."
+>
+  <PageHero
+    eyebrow="Facilities"
+    title="A campus designed for learning, safety, and confidence"
+    text="WWIS facilities support academics, sports, creativity, parent trust, and everyday student care across early years, middle years, and senior years."
+    primaryLabel="Book a Campus Visit"
+    primaryHref="/contact#visit"
+    secondaryLabel="Contact Admissions"
+    secondaryHref="/contact"
+  />
+
+  <section>
+    <SectionHeader
+      eyebrow="Campus features"
+      title="What parents can evaluate on a visit"
+      text="The website highlights the facilities families commonly want to inspect before choosing a school."
+    />
+    <div class="grid grid-3">
+      {facilities.map((facility) => (
+        <article class="card">
+          <h2>{facility}</h2>
+          <p>
+            Included in the WWIS campus experience and available for parent discussion during campus visits.
+          </p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="band">
+    <SectionHeader
+      eyebrow="Safety"
+      title="Safety and monitoring are part of the parent trust story"
+      text="Safety systems, CCTV monitoring, medical support, transport guidance, and supervised play areas should be visible in the final approved media set."
+    />
+    <div class="actions">
+      <a class="button button-primary" href="/gallery">View Gallery Categories</a>
+    </div>
+  </section>
+</Base>

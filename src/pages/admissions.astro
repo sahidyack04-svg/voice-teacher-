@@ -1,0 +1,115 @@
+---
+import PageHero from "../components/PageHero.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import Base from "../layouts/Base.astro";
+import { admissionsSteps, contactInfo, faqs } from "../data/school";
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How WWIS admissions work",
+  step: admissionsSteps.map((step, index) => ({
+    "@type": "HowToStep",
+    position: index + 1,
+    name: step
+  }))
+};
+---
+
+<Base
+  title="Admissions | Wisdom Wealth International School Trichy"
+  description="Start admissions at WWIS Trichy. Learn the approved process, grade availability note, fee request path, documents, campus visit, counseling, and orientation."
+>
+  <PageHero
+    eyebrow="Admissions"
+    title="A clear admissions path for every family"
+    text="Admissions are open from Pre-KG to higher grades based on seat availability. The admissions office will confirm age criteria, assessment needs, and grade-specific details."
+    primaryLabel="Request Fee Structure"
+    primaryHref="#fee-request"
+    secondaryLabel="Book Campus Visit"
+    secondaryHref="/contact#visit"
+  />
+
+  <section>
+    <SectionHeader
+      eyebrow="Process"
+      title="From first inquiry to orientation"
+      text="The admissions journey is designed to help parents understand the school, meet the team, complete any required assessment, and confirm enrollment with clarity."
+    />
+    <ol class="numbered-list">
+      {admissionsSteps.map((step) => <li>{step}</li>)}
+    </ol>
+  </section>
+
+  <section class="soft-band" id="fee-request">
+    <div class="grid grid-2">
+      <div>
+        <SectionHeader
+          eyebrow="Fees"
+          title="Request the fee structure from admissions"
+          text="Detailed fees are not displayed publicly. Submit your details and the admissions team will share the right fee information for the grade and admission year."
+        />
+        <p>
+          Direct contact: <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a> or
+          <a href={`tel:${contactInfo.phoneHref}`}>{contactInfo.phone}</a>.
+        </p>
+      </div>
+      <form class="form-panel" name="fee-request" method="post" action={`mailto:${contactInfo.email}`}>
+        <div class="form-grid">
+          <p>
+            <label for="parent-name">Parent name</label>
+            <input id="parent-name" name="parent-name" required />
+          </p>
+          <p>
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" required />
+          </p>
+          <p>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required />
+          </p>
+          <p>
+            <label for="grade">Grade interested</label>
+            <input id="grade" name="grade" placeholder="Example: Grade 4" required />
+          </p>
+          <p class="full">
+            <label for="message">Message</label>
+            <textarea id="message" name="message">Please share the fee structure and admissions details.</textarea>
+          </p>
+        </div>
+        <button class="button button-primary" type="submit">Request Fee Structure</button>
+      </form>
+    </div>
+  </section>
+
+  <section>
+    <SectionHeader
+      eyebrow="Documents"
+      title="Documents parents should keep ready"
+      text="Final document requirements should be confirmed by admissions, but this checklist helps parents prepare early."
+    />
+    <div class="grid grid-3">
+      {["Birth certificate", "Previous school records", "Transfer certificate if applicable", "Student photos", "Parent ID proof", "Address proof"].map((item) => (
+        <article class="card"><h3>{item}</h3></article>
+      ))}
+    </div>
+  </section>
+
+  <section class="band">
+    <SectionHeader
+      eyebrow="Admissions FAQ"
+      title="Common parent questions"
+      text="The chatbot also answers these topics and escalates policy-specific questions to the admissions team."
+    />
+    <div class="grid grid-2">
+      {faqs.slice(0, 4).map((faq) => (
+        <article class="card">
+          <h3>{faq.question}</h3>
+          <p>{faq.answer}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />
+</Base>

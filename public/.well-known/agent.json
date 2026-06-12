@@ -1,0 +1,110 @@
+{
+  "protocolVersion": "0.2.5",
+  "name": "Wisdom Wealth International School",
+  "description": "Agent-ready interface for WWIS - an international school in Trichy offering iPlay, iDiscover, iLead programs and Cambridge CIE curriculum.",
+  "url": "https://wwistrichy.com/api/mcp",
+  "version": "1.0.0",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": false
+  },
+  "defaultInputModes": [
+    "application/json",
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "application/json",
+    "text/plain"
+  ],
+  "skills": [
+    {
+      "id": "get-services",
+      "name": "Get Services",
+      "description": "Returns WWIS programs, descriptions, and grade ranges.",
+      "tags": [
+        "services",
+        "programs",
+        "admissions"
+      ],
+      "examples": [
+        "What programs does WWIS offer?",
+        "Show me grade-wise programs at WWIS."
+      ],
+      "inputModes": [
+        "text/plain",
+        "application/json"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "get-pricing",
+      "name": "Get Pricing",
+      "description": "Returns pricing guidance and contact details.",
+      "tags": [
+        "pricing",
+        "fees"
+      ],
+      "examples": [
+        "How do I get fee details for WWIS?"
+      ],
+      "inputModes": [
+        "text/plain",
+        "application/json"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "check-availability",
+      "name": "Check Availability",
+      "description": "Provides school visit availability and office hours.",
+      "tags": [
+        "availability",
+        "visits"
+      ],
+      "examples": [
+        "Is Saturday visit available at WWIS?"
+      ],
+      "inputModes": [
+        "text/plain",
+        "application/json"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "submit-inquiry",
+      "name": "Submit Inquiry",
+      "description": "Submits an admissions inquiry for follow-up.",
+      "tags": [
+        "inquiry",
+        "contact",
+        "admissions"
+      ],
+      "examples": [
+        "Submit an inquiry for Grade 5 admission."
+      ],
+      "inputModes": [
+        "application/json"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    }
+  ],
+  "supported_protocols": [
+    "mcp",
+    "a2a"
+  ],
+  "contact": {
+    "endpoint": "https://wwistrichy.com/api/mcp",
+    "web": "https://wwistrichy.com/contact",
+    "email": "rootadmin@wwistrichy.com",
+    "phone": "+91 81246 48888"
+  }
+}

@@ -1,0 +1,160 @@
+---
+import PageHero from "../components/PageHero.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import Base from "../layouts/Base.astro";
+import {
+  admissionsSteps,
+  brand,
+  facilities,
+  galleryCategories,
+  parentResources,
+  programs,
+  schoolName,
+  testimonials
+} from "../data/school";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What curriculum does WWIS follow?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "WWIS follows the Cambridge CIE curriculum with international standards, critical thinking, communication skills, and global citizenship."
+      }
+    },
+    {
+      "@type": "Question",
+      name: "How do I start admissions?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Start with an inquiry or campus visit request. The admissions team will guide parent counseling, assessment if applicable, documents, fee payment, confirmation, and orientation."
+      }
+    },
+    {
+      "@type": "Question",
+      name: "Does WWIS publish fees online?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Detailed fees are not published publicly. Parents can request the fee structure through the admissions form or contact the admissions team."
+      }
+    }
+  ]
+};
+---
+
+<Base
+  title="Wisdom Wealth International School, Trichy | Cambridge CIE School"
+  description="WWIS Trichy offers Cambridge CIE learning, iPlay, iDiscover, iLead, individual learning plans, sports, clubs, and admissions support from Pre-KG to higher grades."
+>
+  <PageHero
+    eyebrow="International school in Trichy"
+    title={schoolName}
+    text={`${brand.promise} A Cambridge CIE learning environment for confident communication, critical thinking, global citizenship, and future readiness.`}
+    primaryLabel="Book a Campus Visit"
+    primaryHref="/contact#visit"
+    secondaryLabel="Request Fee Structure"
+    secondaryHref="/admissions#fee-request"
+  />
+
+  <section>
+    <SectionHeader
+      eyebrow="Learning pathways"
+      title="A stage-wise journey from play to leadership"
+      text="WWIS combines Cambridge standards with iPlay, iDiscover, iLead, and Individual Learning Plans so parents can see a clear path for every stage."
+    />
+    <div class="grid grid-3">
+      {programs.slice(0, 3).map((program) => (
+        <article class="card">
+          <p class="eyebrow">{program.gradeRange}</p>
+          <h3>{program.name}</h3>
+          <p>{program.description}</p>
+          <ul class="tag-list">
+            {program.highlights.slice(0, 3).map((highlight) => <li>{highlight}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="soft-band">
+    <div class="grid grid-2">
+      <div>
+        <SectionHeader
+          eyebrow="Cambridge CIE"
+          title="International standards with individual attention"
+          text="The academic experience is built around critical thinking, communication, global citizenship, and the school promise of focusing on the individual child."
+        />
+        <div class="actions">
+          <a class="button button-primary" href="/services">Explore Programs</a>
+          <a class="button button-light" href="/about">Know WWIS</a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Admissions Journey</h3>
+        <ol class="numbered-list">
+          {admissionsSteps.slice(0, 5).map((step) => <li>{step}</li>)}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <SectionHeader
+      eyebrow="Campus life"
+      title="Facilities, sports, clubs, and parent support in one ecosystem"
+      text="Parents can evaluate the full student experience: academics, campus safety, structured sports, co-curricular clubs, and everyday parent resources."
+    />
+    <div class="grid grid-3">
+      <article class="card">
+        <h3>Facilities</h3>
+        <p>{facilities.slice(0, 6).join(", ")} and more.</p>
+        <a href="/facilities">View facilities</a>
+      </article>
+      <article class="card">
+        <h3>Sports and Clubs</h3>
+        <p>Structured coaching, competitions, robotics, coding, arts, public speaking, and service opportunities.</p>
+        <a href="/sports-clubs">Explore activities</a>
+      </article>
+      <article class="card">
+        <h3>Parent Resources</h3>
+        <p>{parentResources.slice(0, 5).join(", ")} and downloadable support material.</p>
+        <a href="/parent-resources">Open resources</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="band">
+    <SectionHeader
+      eyebrow="Official media"
+      title="Gallery prepared for approved WWIS photos and videos"
+      text="The first release reserves clear categories for real campus, classroom, events, sports, laboratory, achievement, and faculty interaction media."
+    />
+    <ul class="tag-list">
+      {galleryCategories.map((category) => <li>{category}</li>)}
+    </ul>
+    <div class="actions">
+      <a class="button button-primary" href="/gallery">View Gallery</a>
+    </div>
+  </section>
+
+  <section>
+    <SectionHeader
+      eyebrow="Parent trust"
+      title="What families value at WWIS"
+      text="The site is structured around the parent decision: confidence in learning, clarity in admissions, and trust in the campus environment."
+    />
+    <div class="grid grid-2">
+      {testimonials.map((testimonial) => (
+        <blockquote class="card">
+          <p>{testimonial.quote}</p>
+          <cite>{testimonial.name}</cite>
+        </blockquote>
+      ))}
+    </div>
+  </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</Base>

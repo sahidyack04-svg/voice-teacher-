@@ -1,0 +1,119 @@
+---
+import { chatbotQuickPrompts, contactInfo } from "../data/school";
+---
+
+<aside class="chatbot" aria-label="WWIS admissions chatbot">
+  <button class="chatbot-toggle" type="button" aria-expanded="false" aria-controls="chatbot-panel">
+    <span>Ask WWIS</span>
+  </button>
+  <section class="chatbot-panel" id="chatbot-panel" hidden>
+    <header>
+      <p class="eyebrow">Admissions Assistant</p>
+      <h2>How can we help?</h2>
+      <button class="chatbot-close" type="button" aria-label="Close chatbot">x</button>
+    </header>
+    <div class="chatbot-messages" aria-live="polite">
+      <p class="bot-message">
+        I can help with admissions, programs, fees, transport, campus visits, and callback requests.
+      </p>
+    </div>
+    <div class="chatbot-prompts" aria-label="Quick questions">
+      {chatbotQuickPrompts.map((prompt) => (
+        <button type="button" data-prompt={prompt}>{prompt}</button>
+      ))}
+    </div>
+    <form class="chatbot-form">
+      <label for="chatbot-input">Type your question</label>
+      <div>
+        <input id="chatbot-input" name="question" type="text" autocomplete="off" placeholder="Ask about admissions or visits" />
+        <button type="submit">Send</button>
+      </div>
+    </form>
+    <p class="chatbot-escalation">
+      Complex questions are escalated to <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>.
+    </p>
+  </section>
+</aside>
+
+<script>
+  const responses = [
+    {
+      match: ["admission", "admissions", "enrol", "enroll", "process"],
+      answer:
+        "Admissions follow this path: Inquiry, Campus Visit, Parent Counseling, Student Assessment if applicable, Document Submission, Fee Payment, Enrollment Confirmation, and Orientation."
+    },
+    {
+      match: ["iplay", "idiscover", "ilead", "program", "curriculum", "cambridge"],
+      answer:
+        "WWIS follows the Cambridge CIE curriculum. iPlay supports Pre-KG to Grade 2 through play and early communication, iDiscover supports Grade 3 to 7 through projects and creativity, and iLead supports Grade 8 to 12 through leadership, collaboration, innovation, and future readiness."
+    },
+    {
+      match: ["fee", "fees", "pricing", "cost"],
+      answer:
+        "Detailed fees are not published publicly. Please use the Request Fee Structure form or contact admissions at rootadmin@wwistrichy.com or +91 81246 48888."
+    },
+    {
+      match: ["visit", "tour", "campus", "book"],
+      answer:
+        "Campus visits can be requested through the contact form. WWIS working hours are Monday-Saturday, 9 AM-5:30 PM."
+    },
+    {
+      match: ["transport", "bus", "route"],
+      answer:
+        "WWIS provides transport services. Route availability should be confirmed with admissions for your location."
+    },
+    {
+      match: ["callback", "call back", "phone", "contact"],
+      answer:
+        "For a callback, share your name, phone number, child grade, and preferred time through the contact form. The admissions team can also be reached at +91 81246 48888."
+    }
+  ];
+
+  const toggle = document.querySelector<HTMLButtonElement>(".chatbot-toggle");
+  const panel = document.querySelector<HTMLElement>(".chatbot-panel");
+  const close = document.querySelector<HTMLButtonElement>(".chatbot-close");
+  const messages = document.querySelector<HTMLElement>(".chatbot-messages");
+  const form = document.querySelector<HTMLFormElement>(".chatbot-form");
+  const input = document.querySelector<HTMLInputElement>("#chatbot-input");
+
+  function setOpen(open: boolean) {
+    if (!panel || !toggle) return;
+    panel.hidden = !open;
+    toggle.setAttribute("aria-expanded", String(open));
+  }
+
+  function answerFor(question: string) {
+    const normalized = question.toLowerCase();
+    const found = responses.find((item) => item.match.some((keyword) => normalized.includes(keyword)));
+    return found?.answer ?? "I can help with WWIS admissions, programs, fee requests, transport, campus visits, and callbacks. For detailed or policy-specific questions, contact rootadmin@wwistrichy.com.";
+  }
+
+  function addMessage(text: string, type: "user" | "bot") {
+    if (!messages) return;
+    const message = document.createElement("p");
+    message.className = type === "user" ? "user-message" : "bot-message";
+    message.textContent = text;
+    messages.append(message);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  toggle?.addEventListener("click", () => setOpen(panel?.hidden ?? true));
+  close?.addEventListener("click", () => setOpen(false));
+
+  document.querySelectorAll<HTMLButtonElement>("[data-prompt]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const prompt = button.dataset.prompt ?? "";
+      addMessage(prompt, "user");
+      addMessage(answerFor(prompt), "bot");
+    });
+  });
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const question = input?.value.trim() ?? "";
+    if (!question) return;
+    addMessage(question, "user");
+    addMessage(answerFor(question), "bot");
+    if (input) input.value = "";
+  });
+</script>
