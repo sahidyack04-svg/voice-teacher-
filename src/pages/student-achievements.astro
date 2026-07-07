@@ -1,0 +1,99 @@
+---
+import ImagePlaceholder from "../components/ImagePlaceholder.astro";
+import PageHero from "../components/PageHero.astro";
+import Base from "../layouts/Base.astro";
+
+// Using the three student achievement images placed in `public/images`.
+const achievements = [
+  {
+    title: "Story Books",
+    body: "Students develop confidence through storytelling, reading, expression, and creative writing activities that strengthen imagination and communication.",
+    imageLabel: "student achievement 1",
+    imageSrc: "/images/student%20achievement%201.jpg"
+  },
+  {
+    title: "Culinary Arts",
+    body: "Hands-on kitchen experiences encourage creativity, hygiene, teamwork, and practical life skills while helping students explore nutrition and presentation.",
+    imageLabel: "student achievement 2",
+    imageSrc: "/images/student%20achievement%202.jpg"
+  },
+  {
+    title: "Art and Craft",
+    body: "Creative projects foster innovation, visual expression, patience, and collaborative learning in a joyful and inspiring environment.",
+    imageLabel: "student achievement 3",
+    imageSrc: "/images/student%20achievement%203.png"
+  }
+];
+---
+
+<Base
+  title="Student Achievements | WWIS Trichy"
+  description="Discover how WWIS celebrates student achievements across storytelling, culinary arts, creativity, digital learning, and product design."
+  pageType="AboutPage"
+>
+  <PageHero
+    eyebrow="Student Achievements"
+    title="Every achievement is a meaningful moment of growth"
+    text="At WWIS, achievements are celebrated as evidence of confidence, curiosity, perseverance, and joyful progress across academics and talents."
+    primaryLabel="Back to About Us"
+    primaryHref="/about"
+    secondaryLabel="Explore Daily Activities"
+    secondaryHref="/daily-activities"
+  />
+
+  <section class="achievement-list">
+    {achievements.map((item) => (
+      <article class:list={["achievement-card fade-up"]}>
+        <div class="achievement-card__media">
+          <ImagePlaceholder
+            label={item.imageLabel}
+            src={item.imageSrc}
+            aspectRatio="4 / 3"
+            loading="lazy"
+          />
+        </div>
+        <div class="achievement-card__content">
+          <p class="eyebrow">{item.title}</p>
+          <h2>{item.title}</h2>
+          <p>{item.body}</p>
+        </div>
+      </article>
+    ))}
+  </section>
+</Base>
+
+<style>
+  .achievement-list {
+    display: grid;
+    gap: 24px;
+  }
+
+  .achievement-card {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1.5px solid var(--line-gold);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    display: grid;
+    gap: 24px;
+    grid-template-columns: minmax(240px, 0.45fr) minmax(0, 1fr);
+    padding: 24px;
+  }
+
+  .achievement-card__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .achievement-card__content {
+    display: grid;
+    gap: 10px;
+  }
+
+  @media (max-width: 1000px) {
+    .achievement-card {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -3,224 +3,98 @@
   "info": {
     "title": "Wisdom Wealth International School Public Information API",
     "version": "1.0.0",
-    "description": "Public contract for WWIS programs, admissions guidance, pricing guidance, hours, parent resources, chatbot topics, and contact inquiries.",
+    "description": "Static public contract for WWIS website discovery, programs, admissions guidance, chatbot topics, careers, and contact information.",
     "contact": {
       "email": "rootadmin@wwistrichy.com"
-    },
-    "termsOfService": "https://wwistrichy.com/terms"
+    }
   },
   "servers": [
     {
-      "url": "https://wwistrichy.com"
+      "url": "https://worldnews2025.vercel.app"
     }
   ],
   "paths": {
-    "/services": {
+    "/our-programs": {
       "get": {
-        "summary": "List WWIS programs",
-        "description": "Returns public program information for iPlay, iDiscover, iLead, Cambridge CIE, and Individual Learning Plans.",
+        "summary": "View WWIS programs",
+        "description": "Public page describing iPlay, iDiscover, iLead, Cambridge CIE, and Individual Learning Plan content.",
         "responses": {
           "200": {
-            "description": "Program list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Program"
-                  }
-                }
-              }
-            }
+            "description": "Programs page"
           }
         }
       }
     },
-    "/admissions": {
+    "/about": {
       "get": {
-        "summary": "Get admissions guidance",
-        "description": "Returns the approved admissions journey and grade availability note.",
+        "summary": "View About Us",
+        "description": "Public About Us page covering teaching methodology, Cambridge CIE syllabus, daily activities, ILP, and student achievements.",
         "responses": {
           "200": {
-            "description": "Admissions guidance",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AdmissionsInfo"
-                }
-              }
-            }
+            "description": "About Us page"
           }
         }
       }
     },
-    "/pricing": {
+    "/find-us": {
       "get": {
-        "summary": "Get pricing guidance",
-        "description": "Returns public guidance for requesting the fee structure. Detailed fees are not published publicly.",
+        "summary": "View location and admissions guidance",
+        "description": "Public page with location, contact information, admissions process, and secure private admission form link placeholder.",
         "responses": {
           "200": {
-            "description": "Pricing guidance",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PricingInfo"
-                }
-              }
-            }
+            "description": "Find Us page"
           }
         }
       }
     },
-    "/hours": {
+    "/our-team": {
       "get": {
-        "summary": "Get school hours",
-        "description": "Returns WWIS working hours.",
+        "summary": "View Our Team",
+        "description": "Public team page with educator message and team photo placeholder.",
         "responses": {
           "200": {
-            "description": "Hours",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HoursInfo"
-                }
-              }
-            }
+            "description": "Our Team page"
           }
         }
       }
     },
-    "/parent-resources": {
+    "/careers": {
       "get": {
-        "summary": "List parent resources",
-        "description": "Returns public parent resource categories.",
+        "summary": "View Careers",
+        "description": "Public page for the WWIS Teacher Training and Hiring Program.",
         "responses": {
           "200": {
-            "description": "Parent resources",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
+            "description": "Careers page"
           }
         }
       }
     },
-    "/chatbot": {
+    "/blog": {
       "get": {
-        "summary": "List chatbot support topics",
-        "description": "Returns the admissions chatbot support topics for phase 1.",
+        "summary": "View Blog",
+        "description": "Public page prepared for WWIS news, events, achievements, and educational insights.",
         "responses": {
           "200": {
-            "description": "Chatbot topics",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
+            "description": "Blog page"
           }
         }
       }
     },
-    "/contact": {
-      "post": {
-        "summary": "Submit admissions inquiry",
-        "description": "Accepts a parent inquiry for admissions, campus visit, fee request, transport question, or callback request.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ContactRequest"
-              }
-            }
-          }
-        },
+    "/llms.txt": {
+      "get": {
+        "summary": "AI-readable WWIS summary",
+        "description": "Plain text summary of WWIS website content for AI agents.",
         "responses": {
           "200": {
-            "description": "Inquiry accepted",
+            "description": "AI-readable summary",
             "content": {
-              "application/json": {
+              "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContactResponse"
+                  "type": "string"
                 }
               }
             }
           }
-        }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "Program": {
-        "type": "object",
-        "required": ["id", "name", "description", "gradeRange", "provider", "areaServed", "highlights", "outcomes"],
-        "properties": {
-          "id": { "type": "string", "example": "iplay" },
-          "name": { "type": "string", "example": "iPlay" },
-          "description": { "type": "string" },
-          "gradeRange": { "type": "string", "example": "Pre-KG to Grade 2" },
-          "provider": { "type": "string", "example": "Wisdom Wealth International School" },
-          "areaServed": { "type": "string", "example": "Tiruchirappalli, Tamil Nadu, India" },
-          "highlights": { "type": "array", "items": { "type": "string" } },
-          "outcomes": { "type": "array", "items": { "type": "string" } }
-        }
-      },
-      "AdmissionsInfo": {
-        "type": "object",
-        "required": ["availability", "ageCriteria", "steps"],
-        "properties": {
-          "availability": { "type": "string", "example": "Admissions are open from Pre-KG to higher grades based on seat availability." },
-          "ageCriteria": { "type": "string", "example": "Age criteria should be confirmed by the admissions office." },
-          "steps": { "type": "array", "items": { "type": "string" } }
-        }
-      },
-      "PricingInfo": {
-        "type": "object",
-        "required": ["message", "contactPhone", "contactEmail"],
-        "properties": {
-          "message": { "type": "string", "example": "Detailed fees are not displayed publicly. Request the fee structure from admissions." },
-          "contactPhone": { "type": "string", "example": "+91 81246 48888" },
-          "contactEmail": { "type": "string", "format": "email", "example": "rootadmin@wwistrichy.com" }
-        }
-      },
-      "HoursInfo": {
-        "type": "object",
-        "required": ["monday_saturday", "sunday"],
-        "properties": {
-          "monday_saturday": { "type": "string", "example": "09:00-17:30" },
-          "sunday": { "type": "string", "example": "closed" }
-        }
-      },
-      "ContactRequest": {
-        "type": "object",
-        "required": ["name", "email", "phone", "grade_interest", "inquiry_type", "message"],
-        "properties": {
-          "name": { "type": "string" },
-          "email": { "type": "string", "format": "email" },
-          "phone": { "type": "string" },
-          "grade_interest": { "type": "string" },
-          "inquiry_type": { "type": "string", "enum": ["admissions", "fee_request", "campus_visit", "transport", "callback", "other"] },
-          "message": { "type": "string" }
-        }
-      },
-      "ContactResponse": {
-        "type": "object",
-        "required": ["success", "message"],
-        "properties": {
-          "success": { "type": "boolean", "example": true },
-          "message": { "type": "string", "example": "The admissions team will be in touch." }
         }
       }
     }

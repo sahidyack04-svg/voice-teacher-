@@ -28,20 +28,20 @@
 
 ## SEO And AI Readiness
 
-- [ ] Per-page titles and descriptions
-- [ ] EducationalOrganization schema
-- [ ] Service schema
-- [ ] FAQ schema
-- [ ] Breadcrumb schema
-- [ ] `robots.txt`
-- [ ] `llms.txt`
-- [ ] `openapi.json`
-- [ ] `.well-known` agent discovery files
+- [x] Per-page titles and descriptions
+- [x] EducationalOrganization schema
+- [x] Service schema
+- [x] FAQ schema
+- [x] Breadcrumb schema
+- [x] `robots.txt`
+- [x] `llms.txt`
+- [x] `openapi.json`
+- [x] `.well-known` agent discovery files
 
 ## Vercel Deployment
 
-- [ ] Update Astro config for Vercel deployment.
-- [ ] Add `vercel.json`.
-- [ ] Add deployment documentation.
-- [ ] Run production build.
-- [ ] Record verification results.
+- [x] Update Astro config for Vercel deployment.
+- [x] Add `vercel.json`.
+- [x] Add deployment documentation.
+- [x] Run production build.
+- [x] Record verification results.

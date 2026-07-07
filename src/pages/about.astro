@@ -1,78 +1,293 @@
 ---
+import ImagePlaceholder from "../components/ImagePlaceholder.astro";
 import PageHero from "../components/PageHero.astro";
-import SectionHeader from "../components/SectionHeader.astro";
 import Base from "../layouts/Base.astro";
 import { brand, contactInfo, languages, schoolName } from "../data/school";
+
+const teachingMethodologyPillars = [
+  "Child Centric",
+  "Child-Led Learning",
+  "Focus on Individual Learning Plan",
+  "Build Self-Direction and Leadership Skills",
+  "Focus on Real-World Learning"
+];
+
+const studentAchievementHighlights = [
+  "Academic growth",
+  "Project work",
+  "Leadership",
+  "Sports participation",
+  "Public speaking",
+  "Creative expression"
+];
 ---
 
 <Base
-  title="About WWIS | Wisdom Wealth International School Trichy"
-  description="Learn about Wisdom Wealth International School in Trichy, its Cambridge CIE learning model, individual child focus, languages, safety, and parent-friendly approach."
+  title="About Us | Wisdom Wealth International School Trichy"
+  description="About Wisdom Wealth International School, Trichy: teaching methodology, Cambridge International Education syllabus, daily child activities, Individual Learning Plan, and student achievements."
   pageType="AboutPage"
 >
   <PageHero
-    eyebrow="About WWIS"
+    eyebrow="About Us"
     title="A school built around the individual child"
-    text={`${brand.promise} WWIS brings Cambridge CIE learning, life skills, communication, and future readiness into a structured parent-friendly school experience.`}
-    primaryLabel="Talk to Admissions"
-    primaryHref={`mailto:${contactInfo.email}`}
-    secondaryLabel="Explore Programs"
-    secondaryHref="/services"
+    text={`${brand.promise} WWIS brings Cambridge International Education, child-centric methodology, daily development activities, ILP and achievement-focused learning into one parent-friendly school experience.`}
+    primaryLabel="Explore Our Programs"
+    primaryHref="/our-programs"
+    secondaryLabel="Contact Admissions"
+    secondaryHref={`mailto:${contactInfo.email}`}
   />
 
-  <section>
-    <div class="grid grid-2">
-      <div>
-        <SectionHeader
-          eyebrow="School identity"
-          title={schoolName}
-          text="WWIS serves families in Trichy with an international learning approach that connects academics, projects, skills, sports, clubs, and individual learning plans."
-        />
-      </div>
-      <article class="card">
-        <h3>What parents should expect</h3>
-        <p>
-          A clear learning journey from early years to senior years, regular parent communication,
-          safe campus systems, and admissions guidance from inquiry through orientation.
-        </p>
-      </article>
+  <section class="about-intro">
+    <div class="about-intro__content fade-up">
+      <p class="eyebrow">School identity</p>
+      <h2>{schoolName}</h2>
+      <p>
+        WWIS serves families in Trichy with an international learning approach that connects academics,
+        activities, skills, language development and individual attention.
+      </p>
+      <ul class="tag-list">
+        {languages.map((language) => <li>{language}</li>)}
+      </ul>
     </div>
   </section>
 
-  <section class="soft-band">
-    <SectionHeader
-      eyebrow="Learning approach"
-      title="International curriculum, practical skills, and confidence"
-      text="The Cambridge CIE curriculum is presented through inquiry, projects, communication, leadership, and student development opportunities."
-    />
-    <div class="grid grid-3">
-      <article class="card">
-        <h3>Critical Thinking</h3>
-        <p>Students are guided to ask better questions, understand concepts, and apply learning beyond memorization.</p>
-      </article>
-      <article class="card">
-        <h3>Communication</h3>
-        <p>English, Tamil, and Hindi support early expression, parent expectations, and confident classroom participation.</p>
-        <ul class="tag-list">
-          {languages.map((language) => <li>{language}</li>)}
+  <section class="about-sections">
+    <article class="about-card fade-up">
+      <div class="about-card__content">
+        <p class="eyebrow">Teaching Methodology</p>
+        <h2>Teaching Methodology</h2>
+        <p class="about-card__intro">WWIS uses a child-centric teaching methodology that helps every learner participate, question, explore and grow with confidence.</p>
+        <ul class="about-pillars">
+          {teachingMethodologyPillars.map((item) => <li>{item}</li>)}
         </ul>
-      </article>
-      <article class="card">
-        <h3>Global Citizenship</h3>
-        <p>Students build awareness, collaboration, leadership, and future-ready habits for international pathways.</p>
-      </article>
-    </div>
+        <a class="button button--primary" href="/teaching-methodology">Explore Teaching Methodology</a>
+      </div>
+    </article>
+
+    <article class="about-card fade-up">
+      <div class="about-card__content">
+        <p class="eyebrow">Cambridge International Education</p>
+        <h2>Our Syllabus – Cambridge International Education (CIE)</h2>
+        <p class="about-card__intro">WWIS follows Cambridge International Education (CIE), giving students an internationally recognised academic foundation that supports strong concepts, critical thinking, communication skills and global citizenship.</p>
+        <div class="about-card__media">
+          <ImagePlaceholder label="[Cambridge CIE Image Placeholder]" aspectRatio="16 / 10" minHeight="280px" />
+        </div>
+        <a class="button button--primary" href="/cambridge-cie">Explore Cambridge Curriculum</a>
+      </div>
+    </article>
+
+    <article class="about-card fade-up">
+      <div class="about-card__content">
+        <p class="eyebrow">Student achievements</p>
+        <h2>Student Achievements</h2>
+        <p class="about-card__intro">Big or small, every student achievement is a win worth celebrating.</p>
+        <p>Student achievements at WWIS include academic growth, project work, leadership, sports participation, public speaking, creative expression, event involvement and skill development.</p>
+        <ul class="about-pillars about-pillars--compact">
+          {studentAchievementHighlights.map((item) => <li>{item}</li>)}
+        </ul>
+        <div class="about-card__media-grid">
+          <figure class="achievement-figure">
+            <ImagePlaceholder src="/images/student%20achievement%201.jpg" label="[Student Achievement 1]" aspectRatio="4 / 3" />
+            <figcaption>Storytelling and reading confidence</figcaption>
+          </figure>
+          <figure class="achievement-figure">
+            <ImagePlaceholder src="/images/student%20achievement%202.jpg" label="[Student Achievement 2]" aspectRatio="4 / 3" />
+            <figcaption>Culinary creativity and life skills</figcaption>
+          </figure>
+          <figure class="achievement-figure">
+            <ImagePlaceholder src="/images/student%20achievement%203.png" label="[Student Achievement 3]" aspectRatio="4 / 3" />
+            <figcaption>Creative expression and artistic growth</figcaption>
+          </figure>
+        </div>
+        <a class="button button--primary" href="/student-achievements">Explore Student Achievements</a>
+      </div>
+    </article>
   </section>
 
-  <section>
-    <SectionHeader
-      eyebrow="Trust and safety"
-      title="A campus experience parents can evaluate clearly"
-      text="The website highlights official contact details, campus facilities, safety systems, parent resources, and real approved gallery content."
-    />
-    <div class="actions">
-      <a class="button button-primary" href="/facilities">View Facilities</a>
-      <a class="button button-light" href="/contact">Contact WWIS</a>
+  <section class="activities-section">
+    <div class="activities-header fade-up">
+      <p class="eyebrow">Daily activities</p>
+      <h2>Daily Activities of Your Child</h2>
+      <p>Each day blends guided learning, independent time, exploration and joyful challenge so students feel supported and inspired.</p>
+      <a class="button button--secondary" href="/daily-activities">Explore Daily Activities</a>
     </div>
   </section>
 </Base>
+
+<style>
+  .about-intro__content {
+    max-width: 860px;
+  }
+
+  .about-intro h2 {
+    margin-bottom: 16px;
+  }
+
+  .about-intro p:not(.eyebrow) {
+    font-size: 1.08rem;
+    line-height: 1.8;
+  }
+
+  .about-sections {
+    display: grid;
+    gap: 32px;
+  }
+
+  .about-card {
+    background: rgba(255, 255, 255, 0.96);
+    border: 1.5px solid var(--line-gold);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 32px;
+  }
+
+  .about-card__content {
+    display: grid;
+    gap: 16px;
+  }
+
+  .about-card__intro {
+    color: var(--emerald);
+    font-weight: 600;
+  }
+
+  .about-pillars {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .about-pillars li {
+    background: linear-gradient(135deg, var(--ivory-2) 0%, var(--white) 100%);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--emerald);
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 10px 14px;
+    text-align: center;
+  }
+
+  .about-pillars--compact {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .about-card__media {
+    margin-top: 4px;
+  }
+
+  .about-card__media :global(.img-placeholder),
+  .about-card__media-grid :global(.img-placeholder) {
+    box-shadow: var(--shadow-sm);
+  }
+
+  .about-card__media-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .achievement-figure {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+  }
+
+  .achievement-figure figcaption {
+    color: var(--gold-text);
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .button {
+    border-radius: var(--radius-pill);
+    display: inline-flex;
+    font-weight: 700;
+    justify-content: center;
+    padding: 12px 20px;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: fit-content;
+  }
+
+  .button:hover {
+    transform: translateY(-2px);
+  }
+
+  .button--primary {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    box-shadow: 0 12px 24px rgba(212, 175, 55, 0.24);
+    color: var(--emerald);
+  }
+
+  .button--secondary {
+    background: var(--emerald);
+    color: var(--white);
+  }
+
+  .activities-section {
+    display: grid;
+    gap: 28px;
+  }
+
+  .activities-header {
+    max-width: 780px;
+  }
+
+  .activities-header p:not(.eyebrow) {
+    margin-top: 14px;
+    line-height: 1.8;
+  }
+
+  .activity-grid {
+    display: grid;
+    gap: 22px;
+  }
+
+  .activity-card {
+    align-items: center;
+    background: var(--white);
+    border: 1.5px solid var(--line-gold);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    display: grid;
+    gap: 24px;
+    grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1fr);
+    overflow: hidden;
+    padding: 24px;
+  }
+
+  .activity-card--reverse {
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 0.8fr);
+  }
+
+  .activity-card--reverse .activity-card__media {
+    order: 2;
+  }
+
+  .activity-card__body h3 {
+    margin-bottom: 10px;
+  }
+
+  .activity-card__body p {
+    line-height: 1.75;
+  }
+
+  @media (max-width: 900px) {
+    .about-pillars,
+    .about-pillars--compact,
+    .about-card__media-grid,
+    .activity-card,
+    .activity-card--reverse {
+      grid-template-columns: 1fr;
+    }
+
+    .activity-card--reverse .activity-card__media {
+      order: 0;
+    }
+  }
+</style>

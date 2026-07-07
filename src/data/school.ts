@@ -17,9 +17,9 @@ export type Faq = {
 
 export const schoolName = "Wisdom Wealth International School";
 export const schoolShortName = "WWIS";
-export const schoolUrl = "https://wwistrichy.com";
-export const bookingUrl = "/contact#visit";
-export const feeRequestUrl = "/admissions#fee-request";
+export const schoolUrl = "https://worldnews2025.vercel.app";
+export const bookingUrl = "/find-us";
+export const feeRequestUrl = "/find-us#admission-form";
 
 export const contactInfo = {
   phone: "+91 81246 48888",
@@ -39,13 +39,13 @@ export const brand = {
   promise: "Schools focus on class. WWIS focuses on the individual child.",
   tone: "Premium international, modern, parent-friendly, trustworthy, and welcoming.",
   colors: {
-    ink: "#10243f",
-    navy: "#133b5c",
-    teal: "#007b7a",
-    gold: "#d79b2b",
-    coral: "#d85f45",
-    mist: "#eef7f6",
-    paper: "#fffaf1"
+    ink: "#1F2937",
+    navy: "#0B3D2E",
+    teal: "#2D6A4F",
+    gold: "#D4AF37",
+    coral: "#B5543A",
+    mist: "#F3F0E8",
+    paper: "#FAF9F6"
   }
 };
 
@@ -231,11 +231,14 @@ export const faqs: Faq[] = [
 
 export const chatbotQuickPrompts = [
   "How do admissions work?",
+  "What is Cambridge CIE at WWIS?",
   "Explain iPlay, iDiscover, and iLead",
-  "How can I request fee details?",
-  "Can I book a campus visit?",
-  "What transport support is available?",
-  "Ask for a callback"
+  "Tell me about Individual Learning Plans",
+  "What does a typical day at WWIS look like?",
+  "What facilities does WWIS offer?",
+  "What achievements are celebrated at WWIS?",
+  "What careers are available at WWIS?",
+  "Contact admissions"
 ];
 
 export function programJsonPayload() {

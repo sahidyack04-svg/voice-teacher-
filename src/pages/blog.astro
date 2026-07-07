@@ -1,0 +1,283 @@
+---
+import PageHero from "../components/PageHero.astro";
+import Base from "../layouts/Base.astro";
+---
+
+<Base
+  title="WWIS Blog | Wisdom Wealth International School Trichy"
+  description="Our latest news, stories, achievements, and educational insights from Wisdom Wealth International School, Trichy."
+  pageType="CollectionPage"
+>
+  <PageHero
+    eyebrow="Blog"
+    title="WWIS Blog"
+    text="Our latest news, stories, achievements, and educational insights will be published here."
+    centered={true}
+  />
+
+  <section class="blog-section">
+    <div class="blog-coming-soon fade-up">
+      <div class="blog-icon" aria-hidden="true">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="8" width="36" height="32" rx="4" stroke="currentColor" stroke-width="2.5" fill="none"/>
+          <path d="M14 18h20M14 24h20M14 30h12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h2>Coming Soon</h2>
+      <p class="blog-coming-soon__subtitle">
+        Our editorial team is crafting insightful articles, school stories, learning highlights,
+        and educational resources for our community.
+      </p>
+      <div class="blog-topics">
+        <p class="blog-topics__label">Topics we'll cover</p>
+        <ul class="blog-topics__list">
+          <li>📚 Educational Insights</li>
+          <li>🏆 Student Achievements</li>
+          <li>📰 School News &amp; Events</li>
+          <li>💡 Teaching Innovations</li>
+          <li>🌟 Campus Life Stories</li>
+          <li>🎓 Cambridge CIE Updates</li>
+        </ul>
+      </div>
+      <a class="button button-primary" href="/find-us">Connect with Admissions</a>
+    </div>
+
+    <div class="blog-placeholder-grid fade-up">
+      <div class="blog-post-skeleton">
+        <div class="skeleton-img"></div>
+        <div class="skeleton-body">
+          <div class="skeleton-tag"></div>
+          <div class="skeleton-title"></div>
+          <div class="skeleton-text"></div>
+          <div class="skeleton-text short"></div>
+        </div>
+      </div>
+      <div class="blog-post-skeleton">
+        <div class="skeleton-img"></div>
+        <div class="skeleton-body">
+          <div class="skeleton-tag"></div>
+          <div class="skeleton-title"></div>
+          <div class="skeleton-text"></div>
+          <div class="skeleton-text short"></div>
+        </div>
+      </div>
+      <div class="blog-post-skeleton">
+        <div class="skeleton-img"></div>
+        <div class="skeleton-body">
+          <div class="skeleton-tag"></div>
+          <div class="skeleton-title"></div>
+          <div class="skeleton-text"></div>
+          <div class="skeleton-text short"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .blog-section {
+    display: grid;
+    gap: 56px;
+  }
+
+  /* ── Coming Soon Card ── */
+  .blog-coming-soon {
+    background: rgba(255, 255, 255, 0.94);
+    border: 1.5px solid var(--line-gold);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    display: grid;
+    gap: 24px;
+    justify-items: center;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 52px 48px;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+  }
+
+  .blog-coming-soon::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .blog-icon {
+    align-items: center;
+    background: linear-gradient(135deg, var(--emerald), var(--sage));
+    border-radius: 50%;
+    color: var(--gold);
+    display: flex;
+    height: 88px;
+    justify-content: center;
+    width: 88px;
+    box-shadow: 0 8px 32px rgba(11, 61, 46, 0.22);
+    position: relative;
+    z-index: 1;
+  }
+
+  .blog-coming-soon h2 {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    position: relative;
+    z-index: 1;
+  }
+
+  .blog-coming-soon__subtitle {
+    color: var(--charcoal-2);
+    font-size: 1.08rem;
+    line-height: 1.75;
+    max-width: 560px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Topics grid ── */
+  .blog-topics {
+    background: var(--ivory-2);
+    border: 1.5px solid var(--line-gold);
+    border-radius: var(--radius-md);
+    padding: 24px 28px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .blog-topics__label {
+    color: var(--gold-text);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 14px !important;
+    text-transform: uppercase;
+  }
+
+  .blog-topics__list {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .blog-topics__list li {
+    background: var(--white);
+    border: 1.5px solid var(--line-gold);
+    border-radius: var(--radius-sm);
+    color: var(--charcoal);
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding: 10px 14px;
+    text-align: left;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .blog-topics__list li:hover {
+    border-color: var(--gold);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* ── Skeleton post previews ── */
+  .blog-placeholder-grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .blog-post-skeleton {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1.5px solid var(--line-gold);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .blog-post-skeleton::after {
+    content: "Post coming soon";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.6);
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(2px);
+    border-radius: var(--radius-lg);
+  }
+
+  .skeleton-img {
+    aspect-ratio: 16 / 10;
+    background: linear-gradient(90deg, var(--ivory-2) 25%, var(--ivory-3) 50%, var(--ivory-2) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.8s ease-in-out infinite;
+  }
+
+  .skeleton-body {
+    padding: 20px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .skeleton-tag {
+    background: var(--line-gold);
+    border-radius: 4px;
+    height: 12px;
+    width: 60px;
+  }
+
+  .skeleton-title {
+    background: var(--ivory-3);
+    border-radius: 6px;
+    height: 20px;
+    width: 90%;
+  }
+
+  .skeleton-text {
+    background: var(--ivory-2);
+    border-radius: 4px;
+    height: 13px;
+    width: 100%;
+  }
+
+  .skeleton-text.short {
+    width: 70%;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .blog-topics__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .blog-placeholder-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .blog-placeholder-grid .blog-post-skeleton:nth-child(n + 2) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .blog-coming-soon {
+      padding: 36px 24px;
+    }
+
+    .blog-topics__list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,119 +1,601 @@
 ---
-import { chatbotQuickPrompts, contactInfo } from "../data/school";
+import { contactInfo } from "../data/school";
 ---
 
-<aside class="chatbot" aria-label="WWIS admissions chatbot">
+<aside class="chatbot" aria-label="WWIS AI Assistant">
   <button class="chatbot-toggle" type="button" aria-expanded="false" aria-controls="chatbot-panel">
-    <span>Ask WWIS</span>
+    <span class="chatbot-toggle__icon" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <path d="M12 3C7.03 3 3 6.58 3 11c0 2.12.9 4.03 2.36 5.47L4 21l4.74-1.18A10.8 10.8 0 0 0 12 19c4.97 0 9-3.58 9-8s-4.03-8-9-8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M8.5 11h.01M12 11h.01M15.5 11h.01" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
+      </svg>
+    </span>
+    <span>Ask WWIS AI</span>
   </button>
-  <section class="chatbot-panel" id="chatbot-panel" hidden>
-    <header>
-      <p class="eyebrow">Admissions Assistant</p>
-      <h2>How can we help?</h2>
-      <button class="chatbot-close" type="button" aria-label="Close chatbot">x</button>
-    </header>
-    <div class="chatbot-messages" aria-live="polite">
-      <p class="bot-message">
-        I can help with admissions, programs, fees, transport, campus visits, and callback requests.
-      </p>
-    </div>
-    <div class="chatbot-prompts" aria-label="Quick questions">
-      {chatbotQuickPrompts.map((prompt) => (
-        <button type="button" data-prompt={prompt}>{prompt}</button>
-      ))}
-    </div>
-    <form class="chatbot-form">
-      <label for="chatbot-input">Type your question</label>
-      <div>
-        <input id="chatbot-input" name="question" type="text" autocomplete="off" placeholder="Ask about admissions or visits" />
-        <button type="submit">Send</button>
+
+  <section class="chatbot-panel" id="chatbot-panel" aria-hidden="true">
+    <header class="chatbot-header">
+      <div class="chatbot-header__top">
+        <h2 class="chatbot-header__title">WWIS AI Agent</h2>
+        <button class="chatbot-close" type="button" aria-label="Close chat" id="chatbot-close-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
       </div>
-    </form>
-    <p class="chatbot-escalation">
-      Complex questions are escalated to <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>.
-    </p>
+      <p class="chatbot-header__subtitle">Ask me anything about Wisdom Wealth International School.</p>
+    </header>
+
+    <div class="chatbot-body">
+      <div class="chatbot-welcome" id="chatbot-welcome">
+        <p class="welcome-text">Welcome to WWIS! 👋 I'm your AI assistant. Ask me about admissions, programs, campus life, and more.</p>
+      </div>
+
+      <div class="chatbot-messages" id="chatbot-messages" aria-live="polite" aria-atomic="false"></div>
+
+      <div class="chatbot-loading" id="chatbot-loading" hidden>
+        <span class="loading-dot"></span>
+        <span class="loading-dot"></span>
+        <span class="loading-dot"></span>
+      </div>
+
+      <form class="chatbot-form">
+        <div class="chatbot-input-wrap">
+          <input 
+            id="chatbot-input" 
+            name="question" 
+            type="text" 
+            autocomplete="off" 
+            placeholder="Type your question here..." 
+          />
+          <button type="submit" class="send-btn" aria-label="Send message">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </form>
+    </div>
   </section>
 </aside>
 
 <script>
-  const responses = [
+  type MessageRole = "user" | "bot";
+  interface Message {
+    role: MessageRole;
+    text: string;
+  }
+
+  // Greeting responses
+  const greetingResponses: Record<string, string> = {
+    hi: "Hi! 👋 Welcome to WWIS. How are you today? How can I help you?",
+    hello: "Hello! 😊 Welcome to Wisdom Wealth International School. What would you like to know?",
+    "good morning": "Good Morning! ☀️ Hope you're having a wonderful day. How can I assist you today?",
+    "good afternoon": "Good Afternoon! 😊 Welcome to WWIS. How may I help you?",
+    "good evening": "Good Evening! 🌙 I hope you're doing well. How can I assist you today?",
+    hey: "Hey! 👋 Welcome to WWIS. What can I help you with?",
+    thank: "You're most welcome! 😊 If you have any more questions about WWIS, I'm always here to help.",
+    bye: "Thank you for visiting WWIS. Have a wonderful day! 👋",
+    goodbye: "Thank you for visiting WWIS. Have a wonderful day! 👋",
+  };
+
+  // Knowledge base about WWIS
+  const knowledgeBase = [
     {
-      match: ["admission", "admissions", "enrol", "enroll", "process"],
+      match: ["admission", "admissions", "apply", "application", "enrol", "enroll", "apply for", "admission process"],
       answer:
-        "Admissions follow this path: Inquiry, Campus Visit, Parent Counseling, Student Assessment if applicable, Document Submission, Fee Payment, Enrollment Confirmation, and Orientation."
+        "WWIS admissions process is simple and welcoming. It usually begins with an enquiry, followed by a campus visit, parent counselling, and a student interaction or assessment if needed. After documents are reviewed and fees are confirmed, we support the orientation and enrolment. You can start your journey through our dedicated admission form. Would you like help with the next steps?"
     },
     {
-      match: ["iplay", "idiscover", "ilead", "program", "curriculum", "cambridge"],
+      match: ["cambridge", "cie", "syllabus", "curriculum", "international", "cambridge international"],
       answer:
-        "WWIS follows the Cambridge CIE curriculum. iPlay supports Pre-KG to Grade 2 through play and early communication, iDiscover supports Grade 3 to 7 through projects and creativity, and iLead supports Grade 8 to 12 through leadership, collaboration, innovation, and future readiness."
+        "WWIS follows Cambridge International Education (CIE), which provides students with a strong academic foundation emphasizing critical thinking, communication, global citizenship and steady academic progression. This approach helps students develop both depth of knowledge and practical skills. Our Cambridge programs run across all grade levels within our three main stages."
     },
     {
-      match: ["fee", "fees", "pricing", "cost"],
+      match: ["methodology", "teaching", "pedagogy", "child centric", "child-centric", "child-led", "how do you teach"],
       answer:
-        "Detailed fees are not published publicly. Please use the Request Fee Structure form or contact admissions at rootadmin@wwistrichy.com or +91 81246 48888."
+        "WWIS uses a child-centric teaching approach built around active learning, exploration, project-based learning, language development, guided support, and individual attention. We believe in understanding the needs of each child and creating a supportive environment where every student can thrive and grow at their own pace."
     },
     {
-      match: ["visit", "tour", "campus", "book"],
+      match: ["iplay", "early years", "pre kg", "pre-kg", "lkg", "ukg", "play", "kindergarten"],
       answer:
-        "Campus visits can be requested through the contact form. WWIS working hours are Monday-Saturday, 9 AM-5:30 PM."
+        "iPlay is our program for Pre-KG to Grade 2, focusing on purposeful play, social and emotional development, brain development, early communication and three languages: English, Tamil and Hindi. During iPlay, students learn through joyful exploration and guided activities that nurture their natural curiosity."
     },
     {
-      match: ["transport", "bus", "route"],
+      match: ["idiscover", "grade 3", "grade 4", "grade 5", "grade 6", "grade 7", "projects", "discovery", "middle"],
       answer:
-        "WWIS provides transport services. Route availability should be confirmed with admissions for your location."
+        "iDiscover is for Grades 3 to 7, using curiosity-driven learning, project-based learning, problem-solving, exploration, creativity and professional skill development. Students engage with real-world projects that help them discover their passions and develop practical competencies."
     },
     {
-      match: ["callback", "call back", "phone", "contact"],
+      match: ["ilead", "grade 8", "grade 9", "grade 10", "grade 11", "grade 12", "leadership", "senior"],
       answer:
-        "For a callback, share your name, phone number, child grade, and preferred time through the contact form. The admissions team can also be reached at +91 81246 48888."
-    }
+        "iLead is for Grades 8 to 12, building leadership, collaboration, innovation, career awareness, future readiness, internships and preparation for higher education. Our iLead students develop the skills and mindset needed to become thoughtful leaders in their communities."
+    },
+    {
+      match: ["ilp", "individual learning", "individual learning plan", "personalized", "personalised", "individual plan"],
+      answer:
+        "The Individual Learning Plan (ILP) helps each student grow through personalized goals, teacher guidance, progress tracking, and talent development. Students can pursue areas such as programming, arts, robotics, design, writing, sports and practical skills. The ILP is tailored to each child's unique strengths and interests."
+    },
+    {
+      match: ["daily activities", "daily activities page", "what happens at school", "school day", "typical day"],
+      answer:
+        "Our Daily Activities page showcases what a typical day looks like at WWIS. Students experience a blend of guided learning, independent work, exploration, creative challenges and joyful activities. Every day is designed to keep students engaged, supported and inspired."
+    },
+    {
+      match: ["student achievement", "achievements", "student achievement page", "awards", "recognition"],
+      answer:
+        "WWIS celebrates academic growth, project work, leadership, sports participation, public speaking, creative expression and event involvement. Student achievements are an important part of the school experience and we recognize growth across all dimensions of learning."
+    },
+    {
+      match: ["teaching methodology page", "methodology page", "teaching methodology"],
+      answer:
+        "Our Teaching Methodology page outlines the five core approaches we use: Child-Centric Learning, Child-Led Learning, Independent Learning, Creative Exploration, and Language Development. These interconnected methodologies create a powerful, joyful learning environment."
+    },
+    {
+      match: ["our team", "team", "staff", "teachers", "faculty"],
+      answer:
+        "WWIS has a dedicated team of passionate educators committed to nurturing every child. Our team page features our leadership and key faculty members. We believe that great teachers create great learning environments."
+    },
+    {
+      match: ["career", "careers", "job", "hiring", "teacher training", "teaching career", "join us"],
+      answer:
+        "WWIS is always looking for passionate educators. We offer teacher training opportunities, practical classroom exposure, mentoring, certification and possible employment pathways. If you're interested in joining our team, visit our Careers page to learn more."
+    },
+    {
+      match: ["facility", "facilities", "lab", "library", "transport", "medical", "auditorium", "cctv", "safety", "campus"],
+      answer:
+        "WWIS offers state-of-the-art facilities including smart classrooms, science labs, computer labs, library, sports facilities, activity rooms, transport, medical support, play areas, safety systems and CCTV monitoring. We ensure a secure, modern learning environment for all students."
+    },
+    {
+      match: ["event", "events", "gallery", "photos", "image", "video"],
+      answer:
+        "Our Events and Gallery sections showcase the vibrant campus life at WWIS. You'll find images of student activities, celebrations, learning moments and community events. These moments capture the spirit of our school community."
+    },
+    {
+      match: ["find us", "location", "address", "contact", "phone", "email", "visit", "direction", "how to reach"],
+      answer:
+        "WWIS is located at 11th Sector, 18th Cross, Morais City, Near Airport, Trichy 620007. Phone: +91 81246 48888. Email: rootadmin@wwistrichy.com. You can visit us Monday-Saturday, 9 AM-5:30 PM. We'd love to welcome you to our campus!"
+    },
+    {
+      match: ["policy", "policies", "rules", "handbook", "uniform", "calendar", "exam", "schedule"],
+      answer:
+        "School policies, the parent handbook, uniform details, academic calendar, circulars, transport details, downloadable forms and exam schedules should be confirmed through the school office. Our admissions team can provide you with comprehensive information."
+    },
+    {
+      match: ["fee", "fees", "pricing", "cost", "tuition"],
+      answer:
+        "Detailed fee information is not published publicly on our website. Parents can request the complete fee structure through our admissions process or by contacting rootadmin@wwistrichy.com. We're happy to discuss all options with interested families."
+    },
+    {
+      match: ["vision", "mission", "about wwis", "about us", "school values"],
+      answer:
+        "WWIS is committed to nurturing joyful, confident learners who think critically, communicate effectively, and contribute meaningfully to society. We blend Cambridge International standards with child-centric pedagogy to create an inspiring learning environment."
+    },
+    {
+      match: ["blog", "news", "updates", "announcements"],
+      answer:
+        "Visit our Blog page to stay updated with the latest news, announcements and insights from WWIS. We share stories about student achievements, teaching innovations, campus events and school updates."
+    },
   ];
 
   const toggle = document.querySelector<HTMLButtonElement>(".chatbot-toggle");
   const panel = document.querySelector<HTMLElement>(".chatbot-panel");
-  const close = document.querySelector<HTMLButtonElement>(".chatbot-close");
-  const messages = document.querySelector<HTMLElement>(".chatbot-messages");
+  const closeBtn = document.getElementById("chatbot-close-btn") as HTMLButtonElement | null;
+  const messages = document.getElementById("chatbot-messages") as HTMLDivElement | null;
+  const welcome = document.getElementById("chatbot-welcome") as HTMLDivElement | null;
+  const loading = document.getElementById("chatbot-loading") as HTMLDivElement | null;
   const form = document.querySelector<HTMLFormElement>(".chatbot-form");
   const input = document.querySelector<HTMLInputElement>("#chatbot-input");
+  const aside = document.querySelector<HTMLElement>(".chatbot");
+  const conversationHistory: Message[] = [];
 
   function setOpen(open: boolean) {
     if (!panel || !toggle) return;
-    panel.hidden = !open;
+    panel.classList.toggle("is-open", open);
+    panel.setAttribute("aria-hidden", String(!open));
     toggle.setAttribute("aria-expanded", String(open));
+    if (open) requestAnimationFrame(() => input?.focus());
+    if (!open) toggle.focus();
   }
 
-  function answerFor(question: string) {
-    const normalized = question.toLowerCase();
-    const found = responses.find((item) => item.match.some((keyword) => normalized.includes(keyword)));
-    return found?.answer ?? "I can help with WWIS admissions, programs, fee requests, transport, campus visits, and callbacks. For detailed or policy-specific questions, contact rootadmin@wwistrichy.com.";
+  function isOpen() {
+    return panel?.classList.contains("is-open") ?? false;
   }
 
-  function addMessage(text: string, type: "user" | "bot") {
+  function addMessage(text: string, type: MessageRole) {
     if (!messages) return;
-    const message = document.createElement("p");
-    message.className = type === "user" ? "user-message" : "bot-message";
-    message.textContent = text;
-    messages.append(message);
+    if (welcome) welcome.hidden = true;
+    
+    const wrapper = document.createElement("div");
+    wrapper.className = type === "user" ? "user-message" : "bot-message";
+    
+    const p = document.createElement("p");
+    p.textContent = text;
+    wrapper.appendChild(p);
+    
+    messages.append(wrapper);
     messages.scrollTop = messages.scrollHeight;
   }
 
-  toggle?.addEventListener("click", () => setOpen(panel?.hidden ?? true));
-  close?.addEventListener("click", () => setOpen(false));
+  function isGreeting(text: string): string | null {
+    const normalized = text.toLowerCase().trim();
+    for (const [key, response] of Object.entries(greetingResponses)) {
+      if (normalized === key || normalized.startsWith(key)) {
+        return response;
+      }
+    }
+    return null;
+  }
 
-  document.querySelectorAll<HTMLButtonElement>("[data-prompt]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const prompt = button.dataset.prompt ?? "";
-      addMessage(prompt, "user");
-      addMessage(answerFor(prompt), "bot");
-    });
+  function answerFor(question: string): string {
+    // Check for greetings first
+    const greeting = isGreeting(question);
+    if (greeting) return greeting;
+
+    const normalized = question.toLowerCase().trim();
+    const recentContext = conversationHistory.slice(-4).map((entry) => entry.text.toLowerCase()).join(" ");
+
+    // Look for matching knowledge base entry
+    const found = knowledgeBase.find((item) =>
+      item.match.some((keyword) => normalized.includes(keyword))
+    );
+
+    if (found) return found.answer;
+
+    // Contextual follow-up responses
+    if (recentContext.includes("admission") && (normalized.includes("visit") || normalized.includes("next"))) {
+      return "A campus visit is a great next step! It gives you and your child a chance to experience our learning environment firsthand. You can contact us to schedule a visit at your convenience.";
+    }
+
+    if (recentContext.includes("ilp") && (normalized.includes("example") || normalized.includes("what can"))) {
+      return "Great question! ILP options include programming, culinary arts, art, robotics, writing, design, sports and many more. Each student explores areas that match their interests and talents.";
+    }
+
+    if (recentContext.includes("program") && normalized.includes("which")) {
+      return "WWIS offers three main programs: iPlay for early years (Pre-KG to Grade 2), iDiscover for middle years (Grades 3-7), and iLead for senior years (Grades 8-12). Each is designed for that age group's developmental needs.";
+    }
+
+    // Default response
+    return "I'm here to help! I can answer questions about WWIS programs, admissions, campus life, teaching methodology, facilities, and more. What would you like to know?";
+  }
+
+  async function respond(question: string) {
+    const trimmed = question.trim();
+    if (!trimmed) return;
+
+    addMessage(trimmed, "user");
+    conversationHistory.push({ role: "user", text: trimmed });
+
+    if (loading) loading.hidden = false;
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      const answer = answerFor(trimmed);
+      if (loading) loading.hidden = true;
+      addMessage(answer, "bot");
+      conversationHistory.push({ role: "bot", text: answer });
+    } catch (error) {
+      if (loading) loading.hidden = true;
+      addMessage(
+        "I'm sorry, I couldn't process that request right now. Please try again or contact us directly at " + contactInfo.email,
+        "bot"
+      );
+      console.error("Chatbot error", error);
+    }
+  }
+
+  toggle?.addEventListener("click", () => setOpen(!isOpen()));
+  closeBtn?.addEventListener("click", () => setOpen(false));
+  
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && isOpen()) setOpen(false);
+  });
+
+  document.addEventListener("click", (event) => {
+    if (isOpen() && aside && !aside.contains(event.target as Node)) setOpen(false);
   });
 
   form?.addEventListener("submit", (event) => {
     event.preventDefault();
     const question = input?.value.trim() ?? "";
     if (!question) return;
-    addMessage(question, "user");
-    addMessage(answerFor(question), "bot");
+    respond(question);
     if (input) input.value = "";
   });
 </script>
+
+<style>
+  .chatbot-toggle {
+    align-items: center;
+    background: linear-gradient(135deg, var(--gold-soft) 0%, var(--gold-muted) 100%);
+    border: 0;
+    border-radius: var(--radius-pill);
+    box-shadow: 0 8px 32px rgba(201, 162, 39, 0.24);
+    color: var(--peacock-dark);
+    cursor: pointer;
+    display: inline-flex;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 800;
+    gap: 8px;
+    letter-spacing: 0.03em;
+    padding: 14px 22px;
+    transition: box-shadow 0.25s, transform 0.2s;
+  }
+
+  .chatbot-toggle:hover {
+    box-shadow: 0 12px 40px rgba(201, 162, 39, 0.28);
+    transform: translateY(-2px);
+  }
+
+  .chatbot-toggle__icon {
+    display: flex;
+  }
+
+  .chatbot-panel {
+    backdrop-filter: blur(22px);
+    background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,244,232,0.98) 100%);
+    border: 1.5px solid var(--line-gold);
+    border-radius: 24px;
+    bottom: 72px;
+    box-shadow: 0 24px 80px rgba(11, 61, 46, 0.2);
+    display: flex;
+    flex-direction: column;
+    max-height: min(760px, calc(100vh - 100px));
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    transform: translateY(12px) scale(0.97);
+    transform-origin: bottom right;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+    visibility: hidden;
+    width: min(480px, calc(100vw - 28px));
+    z-index: 9999;
+  }
+
+  .chatbot-panel.is-open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+    visibility: visible;
+  }
+
+  .chatbot-header {
+    background: linear-gradient(135deg, var(--peacock) 0%, var(--peacock-dark) 100%);
+    color: var(--white);
+    padding: 18px 20px;
+    border-bottom: 1px solid rgba(217, 199, 208, 0.3);
+  }
+
+  .chatbot-header__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .chatbot-header__title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin: 0 0 4px 0;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+
+  .chatbot-header__subtitle {
+    font-size: 0.85rem;
+    margin: 0;
+    opacity: 0.95;
+    line-height: 1.4;
+    font-weight: 400;
+  }
+
+  .chatbot-close {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: var(--white);
+    cursor: pointer;
+    display: flex;
+    flex-shrink: 0;
+    height: 36px;
+    justify-content: center;
+    width: 36px;
+    transition: background 0.2s ease;
+  }
+
+  .chatbot-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .chatbot-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .chatbot-welcome {
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .welcome-text {
+    font-size: 0.9rem;
+    color: var(--charcoal);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .chatbot-messages {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 14px 16px;
+    scroll-behavior: smooth;
+  }
+
+  .bot-message,
+  .user-message {
+    animation: msgIn 0.22s ease;
+    display: flex;
+    gap: 8px;
+  }
+
+  .user-message {
+    justify-content: flex-end;
+  }
+
+  .bot-message p,
+  .user-message p {
+    border-radius: 14px;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin: 0;
+    padding: 10px 14px;
+    max-width: 85%;
+    word-wrap: break-word;
+  }
+
+  .bot-message p {
+    background: var(--ivory-2);
+    border: 1px solid var(--line);
+    color: var(--charcoal);
+    text-align: left;
+  }
+
+  .user-message p {
+    background: var(--emerald);
+    color: var(--white);
+    text-align: right;
+  }
+
+  .chatbot-loading {
+    align-items: center;
+    display: flex;
+    gap: 6px;
+    padding: 0 16px 8px;
+  }
+
+  .chatbot-form {
+    padding: 12px 16px 14px;
+    border-top: 1px solid var(--line);
+  }
+
+  .chatbot-input-wrap {
+    align-items: center;
+    background: var(--ivory);
+    border: 1.5px solid var(--line-gold);
+    border-radius: var(--radius-pill);
+    display: flex;
+    gap: 4px;
+    padding: 6px 8px 6px 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .chatbot-input-wrap:focus-within {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+  }
+
+  .chatbot-input-wrap input {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    flex: 1;
+    font-size: 0.88rem;
+    font-family: var(--font-body);
+    min-width: 0;
+    padding: 8px 0;
+    color: var(--charcoal);
+    outline: none;
+  }
+
+  .chatbot-input-wrap input::placeholder {
+    color: var(--muted);
+  }
+
+  .send-btn {
+    align-items: center;
+    background: var(--peacock);
+    border: 0;
+    border-radius: 50%;
+    color: var(--white);
+    cursor: pointer;
+    display: flex;
+    flex-shrink: 0;
+    height: 36px;
+    justify-content: center;
+    width: 36px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .send-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(15, 111, 103, 0.25);
+    background: var(--peacock-dark);
+  }
+
+  .send-btn:active {
+    transform: scale(0.98);
+  }
+
+  .loading-dot {
+    animation: bounce 1.2s infinite;
+    background: var(--gold);
+    border-radius: 50%;
+    height: 8px;
+    width: 8px;
+  }
+
+  .loading-dot:nth-child(2) { animation-delay: 0.15s; }
+  .loading-dot:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes msgIn {
+    from { 
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes bounce {
+    0%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-6px); }
+  }
+
+  @media (max-width: 560px) {
+    .chatbot-toggle {
+      padding: 12px 16px;
+      font-size: 0.82rem;
+    }
+
+    .chatbot-panel {
+      bottom: 62px;
+      max-height: calc(100vh - 86px);
+      width: calc(100vw - 24px);
+    }
+
+    .chatbot-header__title {
+      font-size: 1rem;
+    }
+
+    .chatbot-header__subtitle {
+      font-size: 0.8rem;
+    }
+
+    .bot-message p,
+    .user-message p {
+      font-size: 0.82rem;
+      max-width: 90%;
+    }
+  }
+</style>

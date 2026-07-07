@@ -1,0 +1,155 @@
+---
+import ImagePlaceholder from "../components/ImagePlaceholder.astro";
+import PageHero from "../components/PageHero.astro";
+import Base from "../layouts/Base.astro";
+
+const ilpPrograms = [
+  {
+    title: "Story Writing",
+    description: "Students build confidence through story development, expression, vocabulary growth, creative thinking, and guided feedback.",
+    focus: ["Writing goals", "Vocabulary", "Creativity", "Sentence formation", "Progress monitoring"],
+    image: "[Story Writing Image]"
+  },
+  {
+    title: "Culinary Arts",
+    description: "Hands-on culinary experiences help students discover nutrition, creativity, teamwork, and practical life skills.",
+    focus: ["Healthy meals", "Power breakfasts", "Nutrition", "Natural ingredients", "Creativity"],
+    image: "[Culinary Arts Image]"
+  },
+  {
+    title: "Art and Craft",
+    description: "Students explore colour, texture, design, teamwork, and self-expression through engaging art and craft projects.",
+    focus: ["Murals", "Painting", "Colours", "Creativity", "Teamwork"],
+    image: "[Art and Craft Image]"
+  },
+  {
+    title: "Product Designing",
+    description: "Students develop creative solutions through design thinking, practical planning, prototyping, and problem-solving.",
+    focus: ["Toys", "Shoe racks", "Bookshelves", "Creativity", "Design thinking"],
+    image: "[Product Designing Image]"
+  },
+  {
+    title: "Programming",
+    description: "Students build digital confidence through visual coding, logical thinking, and future-ready technology experiences.",
+    focus: ["Scratch", "Python", "FastAPI", "Website development", "Problem solving"],
+    image: "[Programming Image]"
+  },
+  {
+    title: "Graphic Designing",
+    description: "Students learn visual communication, composition, and creativity through digital design projects and school storytelling.",
+    focus: ["Posters", "Celebrations", "Digital tools", "Creativity", "Visual communication"],
+    image: "[Graphic Designing Image]"
+  },
+  {
+    title: "Robotics",
+    description: "Hands-on robotics experiences bring coding, engineering, innovation, and teamwork together in exciting ways.",
+    focus: ["Smart dustbin", "Robotic car", "Electronics", "Coding", "Innovation"],
+    image: "[Robotics Image]"
+  },
+  {
+    title: "Clay Modelling",
+    description: "Students build patience, imagination, and sculptural skills through tactile hands-on clay projects.",
+    focus: ["Pots", "Kitchen models", "Artistic skills", "Patience", "Creativity"],
+    image: "[Clay Modelling Image]"
+  },
+  {
+    title: "Fashion Designing",
+    description: "Students experiment with colour, stitching, style, and design through practical fashion projects.",
+    focus: ["Tote bags", "Wallets", "Dresses", "Stitching", "Creativity"],
+    image: "[Fashion Designing Image]"
+  },
+  {
+    title: "Football",
+    description: "Students develop fitness, teamwork, discipline, and sportsmanship through structured football learning.",
+    focus: ["Passing", "Ball control", "Fitness", "Teamwork", "Sportsmanship"],
+    image: "[Football Image]"
+  }
+];
+---
+
+<Base
+  title="ILP Programs | WWIS Trichy"
+  description="Explore the full range of WWIS ILP programs, including story writing, culinary arts, design, robotics, programming, sports, and more."
+  pageType="CollectionPage"
+>
+  <PageHero
+    eyebrow="ILP Programs"
+    title="A complete view of the pathways students can explore"
+    text="WWIS offers a rich set of ILP categories that help students discover strengths, interests, and future-ready skills in a personalized way."
+    primaryLabel="Back to Our Programs"
+    primaryHref="/our-programs"
+    secondaryLabel="Contact Admissions"
+    secondaryHref="/find-us"
+  />
+
+  <section class="ilp-program-grid">
+    {ilpPrograms.map((program, index) => (
+      <article class:list={["program-card fade-up", index % 2 === 1 && "program-card--reverse"]}>
+        <div class="program-card__media">
+          <ImagePlaceholder
+            label={program.image}
+            src={program.title === "Story Writing" ? "/images/story%20writing%20image.png" : program.title === "Culinary Arts" ? "/images/culinary%20arts%20image%202.png" : program.title === "Art and Craft" ? "/images/art%20and%20craft%20image.png" : program.title === "Product Designing" ? "/images/product%20designing%20image%202.png" : program.title === "Programming" ? "/images/programming%20image.png" : program.title === "Graphic Designing" ? "/images/graphic%20designing%20image.png" : program.title === "Robotics" ? "/images/robotics%20image.png" : program.title === "Clay Modelling" ? "/images/clay%20modeling%20image.png" : program.title === "Fashion Designing" ? "/images/fashion%20designing%20image.png" : "/images/football%20image.jpg"}
+            aspectRatio="4 / 3"
+            loading="lazy"
+          />
+        </div>
+        <div class="program-card__content">
+          <p class="eyebrow">{program.title}</p>
+          <h2>{program.title}</h2>
+          <p>{program.description}</p>
+          <ul>
+            {program.focus.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </article>
+    ))}
+  </section>
+</Base>
+
+<style>
+  .ilp-program-grid {
+    display: grid;
+    gap: 24px;
+  }
+
+  .program-card {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1.5px solid var(--line-gold);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    display: grid;
+    gap: 24px;
+    grid-template-columns: minmax(240px, 0.85fr) minmax(0, 1fr);
+    padding: 24px;
+  }
+
+  .program-card--reverse {
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 0.85fr);
+  }
+
+  .program-card--reverse .program-card__media {
+    order: 2;
+  }
+
+  .program-card__content ul {
+    margin: 10px 0 0;
+    padding-left: 18px;
+  }
+
+  .program-card__content li {
+    margin-bottom: 6px;
+    color: var(--charcoal-2);
+  }
+
+  @media (max-width: 800px) {
+    .program-card,
+    .program-card--reverse {
+      grid-template-columns: 1fr;
+    }
+
+    .program-card--reverse .program-card__media {
+      order: 0;
+    }
+  }
+</style>

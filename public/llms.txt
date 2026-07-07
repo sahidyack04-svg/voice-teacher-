@@ -1,14 +1,36 @@
 # Wisdom Wealth International School (WWIS)
 
-Wisdom Wealth International School (WWIS) is an international school in Trichy, Tamil Nadu. The school follows the Cambridge CIE curriculum and positions itself around the promise: "Schools focus on class. WWIS focuses on the individual child."
+Wisdom Wealth International School (WWIS) is an international school in Trichy, Tamil Nadu. WWIS follows Cambridge International Education (CIE) and is built around the promise: "Schools focus on class. WWIS focuses on the individual child."
 
-## Programs
+## Website
 
-- iPlay (Pre-KG to Grade 2): learning through play, social and emotional development, early communication skills, 24 skills, 3 languages, and brain development focus.
-- iDiscover (Grade 3 to Grade 7): curiosity-driven learning, problem-solving, exploration, creativity, 24 projects, and 8 professional skills.
-- iLead (Grade 8 to Grade 12): leadership, collaboration, innovation, future readiness, 3 career programs, and 5 internships.
-- Cambridge CIE Curriculum: international standards, critical thinking, communication skills, and global citizenship.
-- Individual Learning Plans: personalized support for every student.
+Live site: https://worldnews2025.vercel.app
+
+## Key Pages
+
+- Home: https://worldnews2025.vercel.app/
+- About Us: https://worldnews2025.vercel.app/about
+- Our Programs: https://worldnews2025.vercel.app/our-programs
+- Our Team: https://worldnews2025.vercel.app/our-team
+- Careers: https://worldnews2025.vercel.app/careers
+- Blog: https://worldnews2025.vercel.app/blog
+- Find Us: https://worldnews2025.vercel.app/find-us
+
+## Programs And Learning
+
+- iPlay: Pre-KG to Grade 2, learning through play, social and emotional development, early communication, 24 skills, 3 languages, and brain development.
+- iDiscover: Grade 3 to Grade 7, curiosity-driven learning, problem-solving, exploration, creativity, 24 projects, and professional skill development.
+- iLead: Grade 8 to Grade 12, leadership, collaboration, innovation, future readiness, career awareness, and internships.
+- Cambridge CIE: international standards, strong concepts, critical thinking, communication skills, and global citizenship.
+- Individual Learning Plan (ILP): personalised learning goals, teacher guidance, progress tracking, and student talent development.
+
+## About Us Sections
+
+- Teaching Methodology
+- Our Syllabus - Cambridge International Education (CIE)
+- Daily Activities of Your Child
+- Individual Learning Plan (ILP)
+- Student Achievements
 
 ## Admissions
 
@@ -16,29 +38,15 @@ Admissions are open from Pre-KG to higher grades based on seat availability. Age
 
 Process: Inquiry -> Campus Visit -> Parent Counseling -> Student Assessment if applicable -> Document Submission -> Fee Payment -> Enrollment Confirmation -> Orientation.
 
-Detailed fees are not displayed publicly. Parents should request the fee structure from admissions.
+The public admission form is not embedded on the website. The Apply for Admission button is prepared for a secure private form link that will be added later.
 
-## Facilities, Sports, Clubs, And Resources
+## Facilities, Events, Gallery, And Policies
 
 Facilities include smart classrooms, science labs, computer labs, library, sports facilities, activity rooms, transport services, medical room, auditorium, play areas, safety systems, and CCTV monitoring.
 
-Sports are presented as a major school strength with structured coaching, inter-school competitions, and student development opportunities.
+The site uses labelled placeholders for all image positions, including hero images, event images, gallery images, team photo, career images, CIE images, program images, and activity images. Real approved WWIS media can be uploaded later without changing layout.
 
-Clubs include robotics, coding, music, dance, art, chess, debate, public speaking, entrepreneurship, environmental club, and community service.
-
-Parent resources include academic calendar, circulars, parent handbook, uniform information, transport details, downloadable forms, parent login/app links, and exam schedules.
-
-## Key Pages
-
-- Home: https://wwistrichy.com/
-- About: https://wwistrichy.com/about
-- Programs: https://wwistrichy.com/services
-- Admissions: https://wwistrichy.com/admissions
-- Facilities: https://wwistrichy.com/facilities
-- Sports and Clubs: https://wwistrichy.com/sports-clubs
-- Parent Resources: https://wwistrichy.com/parent-resources
-- Gallery: https://wwistrichy.com/gallery
-- Contact: https://wwistrichy.com/contact
+School policies, parent handbook, uniform information, calendar, circulars, transport details, forms, and exam schedules should be confirmed directly with WWIS.
 
 ## Contact
 

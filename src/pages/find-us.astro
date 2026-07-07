@@ -1,0 +1,270 @@
+---
+import ImagePlaceholder from "../components/ImagePlaceholder.astro";
+import PageHero from "../components/PageHero.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import Base from "../layouts/Base.astro";
+import { admissionsSteps, contactInfo } from "../data/school";
+---
+
+<Base
+  title="Find Us | Location & Admissions | WWIS Trichy"
+  description="Find Wisdom Wealth International School in Trichy. View location details, admission process, and the secure Apply for Admission private link placeholder."
+  pageType="ContactPage"
+>
+  <PageHero
+    eyebrow="Find Us"
+    title="Visit WWIS and start your admission journey"
+    text="Explore our campus location, understand the admission process, and use the secure admission form to begin your enquiry."
+    centered={true}
+    primaryLabel="Apply for Admission"
+    primaryHref="/admission-form"
+    secondaryLabel="Our Location"
+    secondaryHref="#location-tab"
+  />
+
+  <section class="findus-tabs-section" id="location-tab">
+    <div class="tab-list" role="tablist" aria-label="Find Us sections">
+      <button class="tab-btn is-active" type="button" role="tab" aria-selected="true" data-tab="location">
+        Our Location
+      </button>
+      <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="admissions">
+        Admissions Process
+      </button>
+    </div>
+
+    <div class="tab-panel is-active" id="tab-location" role="tabpanel">
+      <div class="location-layout fade-up">
+        <div class="map-container">
+          <iframe
+            class="location-map"
+            src={`https://maps.google.com/maps?q=${encodeURIComponent(contactInfo.address)}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+            title="WWIS Location Map"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+          <div class="map-overlay-badge">
+            <span>Wisdom Wealth International School</span>
+            <small>{contactInfo.address}</small>
+          </div>
+        </div>
+        <article class="card location-card">
+          <h2>School Details</h2>
+          <p>{contactInfo.address}</p>
+          <a href={`tel:${contactInfo.phoneHref}`}>{contactInfo.phone}</a>
+          <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>
+          <a class="directions-button" href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(contactInfo.address)}`} target="_blank" rel="noreferrer">Get Directions</a>
+          <p>{contactInfo.hours}</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-admissions" role="tabpanel">
+      <SectionHeader
+        eyebrow="Admission Process"
+        title="Your journey to WWIS"
+        text="The admissions team guides every family through a clear, supportive journey from first enquiry to orientation."
+      />
+      <ol class="numbered-list">
+        {admissionsSteps.map((step) => <li>{step}</li>)}
+      </ol>
+      <div class="admission-image fade-up">
+        <ImagePlaceholder src="/images/admission%20image.png" label="[ADMISSION IMAGE]" aspectRatio="21 / 9" minHeight="300px" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <section class="soft-band apply-section" id="apply">
+    <div class="apply-card fade-up">
+      <p class="eyebrow">Private admission link</p>
+      <h2>Apply for Admission</h2>
+      <p>
+        Submit your admission enquiry privately and securely through the dedicated WWIS form. The information will be shared only with the school admissions team.
+      </p>
+      <a class="apply-button" href="/admission-form">
+        Apply for Admission
+      </a>
+      <p class="apply-contact">
+        Until then, contact <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a> or
+        <a href={`tel:${contactInfo.phoneHref}`}>{contactInfo.phone}</a>.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const tabButtons = document.querySelectorAll<HTMLButtonElement>("[data-tab]");
+  const tabPanels = document.querySelectorAll<HTMLElement>(".tab-panel");
+
+  tabButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const target = button.dataset.tab;
+      tabButtons.forEach((item) => {
+        const active = item === button;
+        item.classList.toggle("is-active", active);
+        item.setAttribute("aria-selected", String(active));
+      });
+      tabPanels.forEach((panel) => {
+        panel.classList.toggle("is-active", panel.id === `tab-${target}`);
+      });
+    });
+  });
+</script>
+
+<style>
+  .location-layout {
+    align-items: start;
+    display: grid;
+    gap: 28px;
+    grid-template-columns: 1fr 360px;
+  }
+
+  .map-container {
+    position: relative;
+  }
+
+  .map-overlay-badge {
+    background: var(--white);
+    border: 1.5px solid var(--line-gold);
+    border-radius: var(--radius-pill);
+    bottom: 16px;
+    box-shadow: var(--shadow-sm);
+    color: var(--emerald);
+    font-weight: 800;
+    left: 16px;
+    padding: 8px 18px;
+    position: absolute;
+  }
+
+  .location-card {
+    display: grid;
+    gap: 12px;
+  }
+
+  .location-card a,
+  .directions-button {
+    color: var(--emerald);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .directions-button {
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    border-radius: var(--radius-pill);
+    color: var(--peacock-dark);
+    display: inline-flex;
+    justify-content: center;
+    padding: 12px 18px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: fit-content;
+  }
+
+  .directions-button:hover {
+    transform: translateY(-1px);
+  }
+
+  .location-map {
+    border-radius: var(--radius-lg);
+    height: min(520px, 60vh);
+    width: 100%;
+  }
+
+  .map-container {
+    position: relative;
+  }
+
+  .map-overlay-badge {
+    background: var(--white);
+    border: 1.5px solid var(--line-gold);
+    border-radius: var(--radius-pill);
+    bottom: 16px;
+    box-shadow: var(--shadow-sm);
+    color: var(--emerald);
+    display: grid;
+    gap: 4px;
+    font-weight: 800;
+    left: 16px;
+    padding: 12px 18px;
+    position: absolute;
+    width: fit-content;
+  }
+
+  .map-overlay-badge small {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+    font-weight: 500;
+  }
+
+  .admission-image {
+    margin: 36px auto 0;
+    max-width: 900px;
+  }
+
+  .apply-card {
+    background: var(--white);
+    border: 1.5px solid var(--line-gold);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    margin: 0 auto;
+    max-width: 860px;
+    padding: 48px;
+    text-align: center;
+  }
+
+  .apply-card h2 {
+    margin-bottom: 14px;
+  }
+
+  .apply-card p:not(.eyebrow) {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 680px;
+  }
+
+  .apply-button {
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    border-radius: var(--radius-pill);
+    box-shadow: 0 10px 34px rgba(212, 175, 55, 0.32);
+    color: var(--emerald);
+    display: inline-flex;
+    font-weight: 900;
+    justify-content: center;
+    margin-top: 28px;
+    min-width: 260px;
+    padding: 18px 34px;
+    text-decoration: none;
+  }
+
+  .form-link-note {
+    color: var(--gold-text);
+    font-weight: 800;
+    margin-top: 14px !important;
+  }
+
+  .apply-contact {
+    color: var(--muted);
+    font-size: 0.92rem;
+    margin-top: 16px !important;
+  }
+
+  .apply-contact a {
+    color: var(--emerald);
+    font-weight: 700;
+  }
+
+  @media (max-width: 900px) {
+    .location-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .apply-card {
+      padding: 32px 22px;
+    }
+
+    .apply-button {
+      min-width: 100%;
+    }
+  }
+</style>

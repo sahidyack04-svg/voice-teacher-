@@ -1,0 +1,165 @@
+---
+import ImagePlaceholder from "../components/ImagePlaceholder.astro";
+import PageHero from "../components/PageHero.astro";
+import Base from "../layouts/Base.astro";
+
+const dailySections = [
+  {
+    title: "Independent Time for Decision Making",
+    body: "Children use calm, structured periods to make choices, reflect, and build confidence in their own decision-making skills.",
+    image: "[Independent Time Image]"
+  },
+  {
+    title: "Creative Challenge for Creative Confidence",
+    body: "Open-ended challenges help students test ideas, experiment safely, and grow stronger in imaginative problem-solving.",
+    image: "[Creative Challenge Image]"
+  },
+  {
+    title: "Exploration Hour for Mathematics and Science",
+    body: "Students investigate patterns, question concepts, and explore scientific thinking through hands-on discovery.",
+    image: "[Exploration Hour Image]"
+  },
+  {
+    title: "Language Hour for Learning Multiple Languages",
+    body: "Language-rich experiences encourage listening, speaking, reading, and writing across English, Tamil, and Hindi.",
+    image: "[Language Hour Image]"
+  },
+  {
+    title: "Smart Moves for Brain Development",
+    body: "Purposeful movement and mindful routines support attention, coordination, and healthy cognitive development.",
+    image: "[Smart Moves Image]"
+  },
+  {
+    title: "Nature Time for Emotional Development",
+    body: "Outdoor time, observation, and calm reflection strengthen emotional balance, empathy, and connection to the world.",
+    image: "[Nature Time Image]"
+  },
+  {
+    title: "PBL for Real-World Skills",
+    body: "Project-based learning helps students work collaboratively, communicate clearly, and apply knowledge to meaningful situations.",
+    image: "[PBL Image]"
+  },
+  {
+    title: "IECP for Career Planning",
+    body: "Career awareness activities help younger learners connect interests and strengths to possible future pathways.",
+    image: "[IECP Image]"
+  }
+];
+---
+
+<Base
+  title="Daily Activities | WWIS Trichy"
+  description="See how WWIS gives children a balanced day of independent time, creative challenges, exploration, language learning, movement, nature, PBL, and career planning."
+  pageType="AboutPage"
+>
+  <PageHero
+    eyebrow="Daily Activities"
+    title="A balanced day that nurtures growth and joy"
+    text="WWIS builds each school day around guided learning, exploration, independence, creativity, and meaningful challenges."
+    primaryLabel="Back to About Us"
+    primaryHref="/about"
+    secondaryLabel="Explore Teaching Methodology"
+    secondaryHref="/teaching-methodology"
+  />
+
+  <section class="daily-hero fade-up">
+    <div class="daily-hero__media">
+      <ImagePlaceholder src="/images/daily%20activites%20hero%20image.jpg" label="[Daily Activities Hero Image]" aspectRatio="4 / 3" loading="eager" />
+    </div>
+    <div class="daily-hero__content">
+      <p class="eyebrow">Daily rhythm</p>
+      <h2>Education of world-class quality that meets global standards and shapes future-ready students.</h2>
+    </div>
+  </section>
+
+  <section class="daily-center fade-up">
+    <h2>ILP for Discovering Strength</h2>
+    <p>Each child is supported through guided opportunities to discover strengths, interests, and talents in a warm, purposeful learning environment.</p>
+  </section>
+
+  <section class="daily-list">
+    {dailySections.map((item, index) => (
+      <article class:list={["daily-card fade-up", index % 2 === 1 && "daily-card--reverse"]}>
+        <div class="daily-card__content">
+          <p class="eyebrow">{item.title}</p>
+          <h2>{item.title}</h2>
+          <p>{item.body}</p>
+        </div>
+        <div class="daily-card__media">
+          <ImagePlaceholder
+            label={item.image}
+            src={index === 0 ? "/images/independent%20time%20image.png" : index === 1 ? "/images/creative%20challenge%20image.png" : index === 2 ? "/images/exploration%20hour%20image.png" : index === 3 ? "/images/language%20hour%20image.jpg" : index === 4 ? "/images/smart%20moves%20image.jpeg" : index === 5 ? "/images/nature%20time%20image.png" : index === 6 ? "/images/pbl%20image.jpg" : "/images/iecp%20image.png"}
+            aspectRatio="4 / 3"
+            loading="lazy"
+          />
+        </div>
+      </article>
+    ))}
+  </section>
+</Base>
+
+<style>
+  .daily-hero {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1.5px solid var(--line-gold);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    display: grid;
+    gap: 24px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    padding: 24px;
+  }
+
+  .daily-center {
+    border-left: 4px solid var(--gold);
+    margin: 24px 0;
+    padding: 16px 20px;
+  }
+
+  .daily-center h2 {
+    margin-bottom: 8px;
+  }
+
+  .daily-list {
+    display: grid;
+    gap: 24px;
+  }
+
+  .daily-card {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1.5px solid var(--line-gold);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    display: grid;
+    gap: 24px;
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 0.8fr);
+    padding: 24px;
+  }
+
+  .daily-card--reverse {
+    grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1fr);
+  }
+
+  .daily-card--reverse .daily-card__media {
+    order: 2;
+  }
+
+  .daily-card__content {
+    display: grid;
+    gap: 10px;
+  }
+
+  @media (max-width: 800px) {
+    .daily-hero,
+    .daily-card,
+    .daily-card--reverse {
+      grid-template-columns: 1fr;
+    }
+
+    .daily-card--reverse .daily-card__media {
+      order: 0;
+    }
+  }
+</style>

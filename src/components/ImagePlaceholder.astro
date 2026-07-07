@@ -1,0 +1,74 @@
+---
+interface Props {
+  label: string;
+  aspectRatio?: string;
+  class?: string;
+  minHeight?: string;
+  src?: string;
+  alt?: string;
+  loading?: "lazy" | "eager";
+}
+
+const {
+  label,
+  aspectRatio = "16 / 10",
+  class: className = "",
+  minHeight,
+  src,
+  alt = label,
+  loading = "lazy"
+} = Astro.props;
+const hasImage = Boolean(src);
+---
+
+<div
+  class:list={["img-placeholder", className]}
+  role={hasImage ? undefined : "img"}
+  aria-label={hasImage ? undefined : label}
+  style={`aspect-ratio: ${aspectRatio};${minHeight ? ` min-height: ${minHeight};` : ""}`}
+>
+  {hasImage ? (
+    <img class="img-placeholder__image" src={src} alt={alt} loading={loading} decoding="async" />
+  ) : (
+    <span class="img-placeholder__label">{label}</span>
+  )}
+</div>
+
+<style>
+  .img-placeholder {
+    align-items: center;
+    background: linear-gradient(180deg, rgba(249, 232, 236, 0.95), rgba(255, 253, 251, 0.98));
+    border: 1.5px dashed rgba(15, 111, 103, 0.18);
+    border-radius: var(--radius-lg);
+    color: var(--peacock-dark);
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    padding: 22px;
+    text-align: center;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    width: 100%;
+  }
+
+  .img-placeholder:hover {
+    border-color: var(--gold-soft);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+
+  .img-placeholder__image {
+    display: block;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+  }
+
+  .img-placeholder__label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+</style>

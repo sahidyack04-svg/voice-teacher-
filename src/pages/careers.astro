@@ -1,0 +1,332 @@
+---
+import ImagePlaceholder from "../components/ImagePlaceholder.astro";
+import PageHero from "../components/PageHero.astro";
+import Base from "../layouts/Base.astro";
+import { contactInfo } from "../data/school";
+
+const faqItems = [
+  {
+    question: "What does this program offer?",
+    answer:
+      "This is a structured training and hiring program by WWIS that prepares individuals to become confident, skilled, and modern educators.",
+    icon: "🎯"
+  },
+  {
+    question: "Who is this program suitable for?",
+    answer:
+      "This program is ideal for aspiring teachers, fresh graduates, and anyone passionate about guiding and inspiring young learners.",
+    icon: "👩‍🏫"
+  },
+  {
+    question: "What makes WWIS unique?",
+    answer:
+      "WWIS is an innovative learning community that focuses on creativity, critical thinking, and leadership through modern teaching methods.",
+    icon: "✨"
+  },
+  {
+    question: "What will I learn?",
+    answer: null,
+    icon: "📚",
+    list: ["Classroom exposure", "Practical teaching strategies", "Mentoring", "Hands-on experience"]
+  },
+  {
+    question: "Certificates",
+    answer: "Successful candidates receive:",
+    icon: "🏅",
+    list: ["Teacher Training Certificate", "Internship Certificate"]
+  },
+  {
+    question: "Why is this program different?",
+    answer: "Focuses on:",
+    icon: "💡",
+    list: ["Practical learning", "Real classroom experience", "Innovative teaching"]
+  },
+  {
+    question: "Who succeeds?",
+    answer: "People who are:",
+    icon: "🌟",
+    list: ["Passionate", "Creative", "Willing to learn", "Love working with children"]
+  },
+  {
+    question: "Job Opportunities",
+    answer: "High-performing candidates may receive employment opportunities at WWIS.",
+    icon: "💼"
+  },
+  {
+    question: "Duration",
+    answer: "Program Duration: (To be updated)",
+    icon: "📅"
+  },
+  {
+    question: "Eligibility",
+    answer:
+      "Applicants should meet the required educational qualifications and possess a genuine interest in teaching.",
+    icon: "✅"
+  },
+  {
+    question: "Apply",
+    answer: `Send your resume to ${contactInfo.email}`,
+    icon: "📧"
+  }
+];
+
+const highlights = [
+  { icon: "🎓", label: "Structured Training", desc: "Step-by-step programme designed for real classroom readiness" },
+  { icon: "🏫", label: "Real Classroom Exposure", desc: "Hands-on experience with students under expert mentorship" },
+  { icon: "📜", label: "Certified Programme", desc: "Receive Training & Internship certificates on completion" },
+  { icon: "🚀", label: "Career Pathway", desc: "Top performers are offered employment opportunities at WWIS" }
+];
+---
+
+<Base
+  title="Careers | WWIS Teacher Training & Hiring Program"
+  description="Build your teaching career with hands-on experience, mentorship, and modern educational practices at Wisdom Wealth International School, Trichy."
+>
+  <PageHero
+    eyebrow="Careers"
+    title="WWIS Teacher Training & Hiring Program"
+    text="Build your teaching career with hands-on experience, mentorship, and modern educational practices."
+    centered={true}
+    primaryLabel="Apply Now"
+    primaryHref={`mailto:${contactInfo.email}?subject=WWIS%20Teacher%20Training%20Application`}
+    secondaryLabel="Learn More"
+    secondaryHref="#program-details"
+  />
+
+  <!-- Image Gallery -->
+  <section class="careers-gallery-section">
+    <div class="careers-images fade-up">
+      <ImagePlaceholder src="/images/career%20image%201.jpeg" label="[CAREER IMAGE 1]" aspectRatio="4 / 3" class="career-img" loading="lazy" />
+      <ImagePlaceholder src="/images/career%20image%202.png" label="[CAREER IMAGE 2]" aspectRatio="4 / 3" class="career-img" loading="lazy" />
+      <ImagePlaceholder src="/images/career%20image%20%203.png" label="[CAREER IMAGE 3]" aspectRatio="4 / 3" class="career-img" loading="lazy" />
+    </div>
+  </section>
+
+  <!-- Program Highlights -->
+  <section class="careers-highlights soft-band">
+    <div class="highlights-header fade-up">
+      <p class="eyebrow">Why Join Us</p>
+      <h2>Programme Highlights</h2>
+    </div>
+    <div class="highlights-grid">
+      {highlights.map((h) => (
+        <div class="highlight-card fade-up">
+          <span class="highlight-card__icon" aria-hidden="true">{h.icon}</span>
+          <strong class="highlight-card__title">{h.label}</strong>
+          <p class="highlight-card__desc">{h.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="careers-faq-section" id="program-details">
+    <div class="faq-header fade-up">
+      <p class="eyebrow">Programme Details</p>
+      <h2>Frequently Asked Questions</h2>
+      <p class="faq-header__sub">Everything you need to know about the WWIS Teacher Training & Hiring Programme.</p>
+    </div>
+    <div class="faq-grid">
+      {faqItems.map((item) => (
+        <details class="faq-card fade-up">
+          <summary>
+            <span class="faq-summary-icon" aria-hidden="true">{item.icon}</span>
+            {item.question}
+          </summary>
+          <div class="faq-card__body">
+            {item.answer && <p>{item.answer}</p>}
+            {item.list && (
+              <ul>
+                {item.list.map((li) => <li>{li}</li>)}
+              </ul>
+            )}
+            {item.question === "Apply" && (
+              <div class="careers-apply">
+                <a
+                  class="button button-primary"
+                  href={`mailto:${contactInfo.email}?subject=WWIS%20Teacher%20Training%20Application`}
+                >
+                  Send Your Resume →
+                </a>
+              </div>
+            )}
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="careers-cta-section band">
+    <div class="careers-cta-inner fade-up">
+      <p class="eyebrow">Ready to Begin?</p>
+      <h2>Start Your Teaching Career at WWIS</h2>
+      <p>Join a team of passionate educators and make a difference in the lives of young learners.</p>
+      <div class="actions">
+        <a
+          class="button button-secondary"
+          href={`mailto:${contactInfo.email}?subject=WWIS%20Teacher%20Training%20Application`}
+        >
+          Apply Now
+        </a>
+        <a class="button button-light" href="/our-team">Meet Our Team</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ── Gallery ── */
+  .careers-gallery-section {
+    padding-top: 0 !important;
+  }
+
+  .careers-images {
+    display: grid;
+    gap: 22px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .careers-images :global(.career-img) {
+    min-height: 220px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .careers-images :global(.career-img:hover) {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* ── Highlights ── */
+  .highlights-header {
+    margin-bottom: 36px;
+  }
+
+  .highlights-header h2 {
+    margin-top: 10px;
+  }
+
+  .highlights-grid {
+    display: grid;
+    gap: 22px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .highlight-card {
+    background: var(--white);
+    border: 1.5px solid var(--line-gold);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    display: grid;
+    gap: 10px;
+    padding: 28px 24px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .highlight-card:hover {
+    border-color: var(--gold);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+  }
+
+  .highlight-card__icon {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 4px;
+  }
+
+  .highlight-card__title {
+    color: var(--emerald);
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  .highlight-card__desc {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.55;
+    margin: 0 !important;
+  }
+
+  /* ── FAQ ── */
+  .faq-header {
+    margin-bottom: 36px;
+    max-width: 680px;
+  }
+
+  .faq-header h2 {
+    margin: 10px 0 14px;
+  }
+
+  .faq-header__sub {
+    color: var(--charcoal-2);
+    font-size: 1.02rem;
+    line-height: 1.7;
+  }
+
+  .faq-summary-icon {
+    font-size: 1.2rem;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+
+  .faq-card summary {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .careers-apply {
+    margin-top: 20px;
+  }
+
+  /* ── CTA Band ── */
+  .careers-cta-section {
+    text-align: center;
+  }
+
+  .careers-cta-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .careers-cta-inner .actions {
+    justify-content: center;
+  }
+
+  .careers-cta-inner h2 {
+    color: var(--white);
+    margin: 12px 0 16px;
+  }
+
+  .careers-cta-inner p:not(.eyebrow) {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 1.05rem;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1100px) {
+    .highlights-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 900px) {
+    .careers-images {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .highlights-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

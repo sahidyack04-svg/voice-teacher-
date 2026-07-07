@@ -1,0 +1,59 @@
+---
+import ImagePlaceholder from "../components/ImagePlaceholder.astro";
+import PageHero from "../components/PageHero.astro";
+import Base from "../layouts/Base.astro";
+---
+
+<Base
+  title="Cambridge International Education (CIE) | WWIS Trichy"
+  description="Learn about the Cambridge International Education curriculum at WWIS and how it supports academic excellence, critical thinking, and global citizenship."
+  pageType="AboutPage"
+>
+  <PageHero
+    eyebrow="Cambridge CIE"
+    title="A strong international foundation for every learner"
+    text="WWIS follows Cambridge International Education (CIE) to build academic confidence, critical thinking, communication skills, and global awareness in a modern school environment."
+    primaryLabel="Back to About Us"
+    primaryHref="/about"
+    secondaryLabel="Explore Our Programs"
+    secondaryHref="/our-programs"
+  />
+
+  <section class="cie-layout fade-up">
+    <div class="cie-content">
+      <p class="eyebrow">Cambridge International Education</p>
+      <h2>Our Syllabus – Cambridge International Education (CIE)</h2>
+      <p>WWIS follows Cambridge International Education (CIE), giving students an internationally recognised academic foundation that supports strong concepts, critical thinking, communication skills, and global citizenship.</p>
+      <p>The Cambridge-aligned learning journey is designed to encourage inquiry, confidence, and steady academic progression while helping students connect learning to the wider world.</p>
+      <p>Students are supported through a balanced curriculum that values subject knowledge, communication, curiosity, and independent thinking.</p>
+    </div>
+    <div class="cie-media">
+      <ImagePlaceholder label="[Cambridge CIE Image Placeholder]" aspectRatio="4 / 3" />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .cie-layout {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.96);
+    border: 1.5px solid var(--line-gold);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    display: grid;
+    gap: 24px;
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 0.8fr);
+    padding: 24px;
+  }
+
+  .cie-content {
+    display: grid;
+    gap: 12px;
+  }
+
+  @media (max-width: 800px) {
+    .cie-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

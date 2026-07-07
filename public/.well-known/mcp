@@ -1,5 +1,7 @@
 {
-  "name": "WWIS MCP Discovery",
-  "endpoint": "https://wwistrichy.com/api/mcp",
-  "transport": "jsonrpc-http"
+  "name": "WWIS Static Agent Discovery",
+  "site": "https://worldnews2025.vercel.app",
+  "openapi": "https://worldnews2025.vercel.app/openapi.json",
+  "llms": "https://worldnews2025.vercel.app/llms.txt",
+  "transport": "static-discovery"
 }

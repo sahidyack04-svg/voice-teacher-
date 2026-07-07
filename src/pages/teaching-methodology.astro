@@ -1,0 +1,123 @@
+---
+import ImagePlaceholder from "../components/ImagePlaceholder.astro";
+import PageHero from "../components/PageHero.astro";
+import Base from "../layouts/Base.astro";
+
+const methodologySections = [
+  {
+    title: "Child Centric Learning",
+    intro: "Every child is seen as a capable and curious learner, and the learning environment is designed to support their voice, pace, and confidence.",
+    body: "The approach combines warmth, encouragement, and purposeful structure so children feel secure while exploring new ideas and skills.",
+    image: "[Child Centric Learning Image]"
+  },
+  {
+    title: "Child-Led Learning",
+    intro: "Students are invited to ask questions, make choices, and lead parts of their own learning experience with teacher guidance.",
+    body: "Curiosity becomes the engine of discovery, helping students build independence, ownership, and strong habits of inquiry.",
+    image: "[Child-Led Learning Image]"
+  },
+  {
+    title: "Focus on Individual Learning Plan",
+    intro: "Every learner receives a personalised pathway that reflects strengths, areas for growth, interests, and future goals.",
+    body: "The ILP approach helps teachers plan meaningful experiences while giving families a clear view of progress and next steps.",
+    image: "[Individual Learning Plan Image]"
+  },
+  {
+    title: "Build Self-Direction and Leadership Skills",
+    intro: "Students practice responsibility, collaboration, and initiative through guided projects, presentations, and school participation.",
+    body: "Leadership is nurtured through real opportunities to contribute, speak up, solve problems, and support others.",
+    image: "[Leadership Skills Image]"
+  },
+  {
+    title: "Focus on Real-World Learning",
+    intro: "Learning is connected to authentic experiences, practical tasks, projects, and community-based exploration.",
+    body: "This makes education feel relevant and purposeful while preparing students for future study and the wider world.",
+    image: "[Real World Learning Image]"
+  }
+];
+---
+
+<Base
+  title="Teaching Methodology | WWIS Trichy"
+  description="Learn how WWIS uses child-centric teaching, child-led learning, ILP, leadership development, and real-world learning."
+  pageType="AboutPage"
+>
+  <PageHero
+    eyebrow="Teaching Methodology"
+    title="A thoughtful learning approach for every child"
+    text="WWIS blends child-centric teaching, guided exploration, individualized pathways, and real-world experiences to help students grow with confidence."
+    primaryLabel="Back to About Us"
+    primaryHref="/about"
+    secondaryLabel="Explore Our Programs"
+    secondaryHref="/our-programs"
+  />
+
+  <section class="methodology-list">
+    {methodologySections.map((section, index) => (
+      <article class:list={["methodology-card fade-up", index % 2 === 1 && "methodology-card--reverse"]}>
+        <div class="methodology-card__content">
+          <p class="eyebrow">{section.title}</p>
+          <h2>{section.title}</h2>
+          <p>{section.intro}</p>
+          <p>{section.body}</p>
+        </div>
+        <div class="methodology-card__media">
+          <ImagePlaceholder
+            label={section.image}
+            src={index === 0 ? "/images/child%20centric%20learning%20image.jpg" : index === 1 ? "/images/child%20led%20learning%20image.png" : index === 2 ? "/images/individual%20learning%20plan%20image.jpeg" : index === 3 ? "/images/leadership%20skills%20image.jpeg" : "/images/real%20world%20learing%20image.jpg"}
+            aspectRatio="4 / 3"
+            loading="lazy"
+          />
+        </div>
+      </article>
+    ))}
+  </section>
+</Base>
+
+<style>
+  .methodology-list {
+    display: grid;
+    gap: 24px;
+  }
+
+  .methodology-card {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1.5px solid var(--line-gold);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    display: grid;
+    gap: 24px;
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 0.8fr);
+    padding: 24px;
+  }
+
+  .methodology-card--reverse {
+    grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1fr);
+  }
+
+  .methodology-card--reverse .methodology-card__media {
+    order: 2;
+  }
+
+  .methodology-card__content {
+    display: grid;
+    gap: 10px;
+  }
+
+  .methodology-card__content p:last-child {
+    color: var(--charcoal-2);
+    line-height: 1.8;
+  }
+
+  @media (max-width: 800px) {
+    .methodology-card,
+    .methodology-card--reverse {
+      grid-template-columns: 1fr;
+    }
+
+    .methodology-card--reverse .methodology-card__media {
+      order: 0;
+    }
+  }
+</style>

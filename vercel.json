@@ -3,6 +3,15 @@
   "outputDirectory": "dist",
   "framework": "astro",
   "cleanUrls": true,
+  "redirects": [
+    { "source": "/services", "destination": "/our-programs", "permanent": true },
+    { "source": "/admissions", "destination": "/find-us", "permanent": true },
+    { "source": "/contact", "destination": "/find-us", "permanent": true },
+    { "source": "/gallery", "destination": "/", "permanent": true },
+    { "source": "/facilities", "destination": "/about", "permanent": true },
+    { "source": "/sports-clubs", "destination": "/our-programs", "permanent": true },
+    { "source": "/parent-resources", "destination": "/find-us", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/llms.txt",

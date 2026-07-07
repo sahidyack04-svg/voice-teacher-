@@ -1,0 +1,112 @@
+---
+import ImagePlaceholder from "../components/ImagePlaceholder.astro";
+import PageHero from "../components/PageHero.astro";
+import Base from "../layouts/Base.astro";
+---
+
+<Base
+  title="Our Team | Wisdom Wealth International School Trichy"
+  description="Meet the dedicated educators at Wisdom Wealth International School who inspire excellence, creativity, leadership, and lifelong learning."
+  pageType="AboutPage"
+>
+  <PageHero
+    eyebrow="Our Team"
+    title="Meet Our Team"
+    text="Dedicated educators inspiring excellence, creativity, leadership, and lifelong learning."
+    centered={true}
+  />
+
+  <section class="team-section">
+    <div class="team-photo fade-up">
+      <ImagePlaceholder src="/images/team%20photo.jpeg" label="[TEAM PHOTO]" aspectRatio="auto" minHeight="380px" loading="lazy" />
+    </div>
+
+    <article class="team-card fade-up">
+      <p class="eyebrow">Educators who lead with care</p>
+      <h2>One team committed to every learner</h2>
+      <p>
+        At Wisdom Wealth International School, our strength lies in our people. Our educators are
+        experienced, passionate, and deeply committed to nurturing every learner. Working
+        collaboratively as one team, they create a supportive, inclusive environment where students
+        are guided, understood, and encouraged to reach their full potential.
+      </p>
+      <ul class="team-highlights">
+        <li>Experienced facilitators and mentors</li>
+        <li>Child-centred teaching and personalised support</li>
+        <li>Collaborative, supportive school culture</li>
+      </ul>
+    </article>
+  </section>
+</Base>
+
+<style>
+  .team-section {
+    display: grid;
+    gap: 34px;
+  }
+
+  .team-photo {
+    margin: 0 auto;
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  .team-photo :global(.img-placeholder) {
+    box-shadow: var(--shadow-lg);
+  }
+
+  .team-card {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1.5px solid var(--line-gold);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    margin: 0 auto;
+    max-width: 900px;
+    padding: 42px 48px;
+    position: relative;
+  }
+
+  .team-card::before {
+    background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+    content: "";
+    height: 4px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .team-card h2 {
+    margin-bottom: 12px;
+  }
+
+  .team-card p {
+    color: var(--charcoal-2);
+    font-size: 1.08rem;
+    line-height: 1.9;
+    margin: 0;
+  }
+
+  .team-highlights {
+    display: grid;
+    gap: 10px;
+    list-style: none;
+    margin: 20px 0 0;
+    padding: 0;
+  }
+
+  .team-highlights li {
+    background: var(--ivory-2);
+    border: 1px solid var(--line-gold);
+    border-radius: var(--radius-sm);
+    color: var(--emerald);
+    font-weight: 600;
+    padding: 10px 14px;
+  }
+
+  @media (max-width: 560px) {
+    .team-card {
+      padding: 30px 24px;
+    }
+  }
+</style>
