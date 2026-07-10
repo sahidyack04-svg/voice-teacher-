@@ -1,0 +1,9 @@
+node_modules/
+.astro/
+dist/
+__pycache__/
+.venv/
+*.pyc
+
+.vercel
+.env*
