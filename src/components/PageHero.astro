@@ -11,8 +11,6 @@ interface Props {
   variant?: "default" | "home";
   heroImageSrc?: string;
   heroImageAlt?: string;
-  cambridgeLogoSrc?: string;
-  schoolLogoSrc?: string;
 }
 
 const {
@@ -26,326 +24,43 @@ const {
   centered = false,
   variant = "default",
   heroImageSrc,
-  heroImageAlt = "WWIS campus hero image",
-  cambridgeLogoSrc,
-  schoolLogoSrc
+  heroImageAlt = "WWIS campus hero image"
 } = Astro.props;
 
 const isHomeHero = variant === "home";
 ---
 
 <section class:list={["page-hero", centered && "page-hero--centered", isHomeHero && "page-hero--home"]}>
-  {isHomeHero && (
-    <div class="hero-bg" aria-hidden="true">
-      <svg class="hero-svg" viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M-80 720 C 120 580, 300 640, 420 520 C 540 400, 480 280, 580 200 C 680 120, 800 160, 860 100 L -80 100 Z"
-          fill="#0B3D2E"
-          opacity="0.92"
-        />
-        <path
-          d="M1520 720 C 1320 600, 1180 660, 1060 520 C 940 380, 1020 260, 920 160 C 820 60, 700 100, 660 40 L 1520 40 Z"
-          fill="#14532D"
-          opacity="0.7"
-        />
-        <path
-          d="M-80 720 C 200 680, 400 700, 560 660 C 720 620, 800 640, 960 620 C 1120 600, 1280 640, 1520 720 Z"
-          fill="#0B3D2E"
-          opacity="0.96"
-        />
-        <path
-          d="M-80 680 C 150 640, 350 660, 520 620 C 690 580, 760 600, 920 575 C 1080 550, 1240 580, 1520 660"
-          fill="none"
-          stroke="#2D6A4F"
-          stroke-width="60"
-          opacity="0.5"
-        />
-        <path
-          d="M-80 700 C 200 660, 420 680, 600 635 C 780 590, 860 610, 1040 580 C 1220 550, 1380 590, 1520 660"
-          fill="none"
-          stroke="#D4AF37"
-          stroke-width="1.5"
-          opacity="0.55"
-        />
-        <pattern id="dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
-          <circle cx="1" cy="1" r="1" fill="rgba(255,255,255,0.06)" />
-        </pattern>
-        <rect width="1440" height="720" fill="url(#dots)" />
-        <radialGradient id="goldGlow" cx="50%" cy="30%" r="45%">
-          <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.12" />
-          <stop offset="100%" stop-color="#D4AF37" stop-opacity="0" />
-        </radialGradient>
-        <rect width="1440" height="720" fill="url(#goldGlow)" />
-      </svg>
-      <div class="hero-gold-bar"></div>
-    </div>
-  )}
-
-  <div class:list={["page-hero__inner", isHomeHero && "page-hero__inner--centered"]}>
-    <div class:list={["page-hero__panel", isHomeHero && "page-hero__panel--home"]}>
-      <div class="page-hero__content">
-        {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-        {isHomeHero && (cambridgeLogoSrc || schoolLogoSrc) && (
-          <div class="hero-brand-row" aria-label="WWIS school badges">
-            {cambridgeLogoSrc && (
-              <div class="hero-brand-pill hero-brand-pill--cambridge">
-                <img src={cambridgeLogoSrc} alt="Cambridge International" />
-              </div>
-            )}
-            {schoolLogoSrc && (
-              <div class="hero-brand-pill hero-brand-pill--school">
-                <img src={schoolLogoSrc} alt="Wisdom Wealth International School" />
-              </div>
-            )}
-          </div>
-        )}
-        <h1>{title}</h1>
-        <p>{text}</p>
-        {(primaryLabel || secondaryLabel) && (
-          <div class="hero-actions">
-            {primaryLabel && primaryHref && <a class="button button-primary" href={primaryHref}>{primaryLabel}</a>}
-            {secondaryLabel && secondaryHref && <a class="button button-secondary" href={secondaryHref}>{secondaryLabel}</a>}
-          </div>
-        )}
-      </div>
+  <div class:list={["page-hero__inner", isHomeHero && "page-hero__inner--home"]}>
+    <div class="page-hero__content">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h1>{title}</h1>
+      <p>{text}</p>
+      {(primaryLabel || secondaryLabel) && (
+        <div class="hero-actions">
+          {primaryLabel && primaryHref && <a class="button button-primary" href={primaryHref}>{primaryLabel}</a>}
+          {secondaryLabel && secondaryHref && <a class="button button-secondary" href={secondaryHref}>{secondaryLabel}</a>}
+        </div>
+      )}
       {isHomeHero && (
-        <div class="page-hero__media">
-          {heroImageSrc ? (
-            <img class="page-hero__image" src={heroImageSrc} alt={heroImageAlt} loading="eager" />
-          ) : (
-            <div class="page-hero__placeholder" role="img" aria-label="Hero image placeholder">
-              <span class="placeholder-label">[HERO IMAGE]</span>
-            </div>
-          )}
+        <div class="hero-highlights">
+          <span>Cambridge CIE</span>
+          <span>Holistic learning</span>
+          <span>Global readiness</span>
         </div>
       )}
     </div>
+    {isHomeHero && (
+      <div class="page-hero__media">
+        {heroImageSrc ? (
+          <img class="page-hero__image" src={heroImageSrc} alt={heroImageAlt} loading="eager" />
+        ) : (
+          <div class="page-hero__placeholder" role="img" aria-label="Hero image placeholder">
+            <span class="placeholder-label">[HERO IMAGE]</span>
+          </div>
+        )}
+      </div>
+    )}
   </div>
-
   {!isHomeHero && <div class="gold-accent-bar"></div>}
 </section>
-
-<style>
-  .page-hero--home {
-    background: linear-gradient(135deg, var(--peacock) 0%, var(--peacock-dark) 60%, #1b4d49 100%);
-    color: var(--white-pure);
-    min-height: auto;
-    overflow: hidden;
-    padding: 0;
-    position: relative;
-    isolation: isolate;
-  }
-
-  .hero-bg {
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-    position: absolute;
-  }
-
-  .hero-svg {
-    display: block;
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-  }
-
-  .hero-gold-bar {
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(212, 175, 55, 0.6) 25%,
-      rgba(240, 208, 96, 0.8) 50%,
-      rgba(212, 175, 55, 0.6) 75%,
-      transparent 100%
-    );
-    bottom: 0;
-    height: 2px;
-    left: 0;
-    position: absolute;
-    right: 0;
-  }
-
-  .page-hero__inner--centered {
-    align-items: center;
-    display: flex;
-    gap: clamp(32px, 5vw, 48px);
-    margin: 0 auto;
-    max-width: 1200px;
-    min-height: inherit;
-    padding: clamp(72px, 12vw, 110px) max(24px, calc((100vw - 1180px) / 2)) clamp(64px, 8vw, 88px);
-    position: relative;
-    width: 100%;
-    z-index: 1;
-  }
-
-  .page-hero__panel--home {
-    align-items: center;
-    animation: heroFadeIn 750ms ease both;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
-    backdrop-filter: blur(18px);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 32px;
-    box-shadow: 0 30px 80px rgba(2, 26, 24, 0.28);
-    display: grid;
-    gap: clamp(24px, 4vw, 42px);
-    grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
-    padding: clamp(24px, 3vw, 38px);
-    width: 100%;
-  }
-
-  .page-hero--home .page-hero__content {
-    max-width: 620px;
-    text-align: left;
-  }
-
-  .page-hero--home h1 {
-    color: var(--white);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.18);
-  }
-
-  .page-hero--home p {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: clamp(1rem, 2vw, 1.2rem);
-    font-weight: 300;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 18px;
-    max-width: 620px;
-  }
-
-  .page-hero--home .eyebrow {
-    color: var(--gold);
-    justify-content: flex-start;
-  }
-
-  .page-hero--home .eyebrow::before {
-    background: var(--gold);
-  }
-
-  .page-hero--home .hero-actions {
-    justify-content: flex-start;
-  }
-
-  .hero-brand-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 18px;
-  }
-
-  .hero-brand-pill {
-    align-items: center;
-    background: rgba(255, 255, 255, 0.96);
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    border-radius: 999px;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
-    display: inline-flex;
-    justify-content: center;
-    min-height: 48px;
-    padding: 8px 14px;
-  }
-
-  .hero-brand-pill img {
-    display: block;
-    height: 28px;
-    object-fit: contain;
-    width: auto;
-  }
-
-  .page-hero__media {
-    max-width: 860px;
-    width: 100%;
-  }
-
-  .page-hero__placeholder,
-  .page-hero__image {
-    aspect-ratio: 16 / 9;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    width: 100%;
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
-  }
-
-  .page-hero__image {
-    display: block;
-    height: 100%;
-    object-fit: contain;
-    object-position: center;
-  }
-
-  .page-hero__placeholder {
-    align-items: center;
-    background: linear-gradient(135deg, rgba(255,255,255,0.97), rgba(247,246,242,0.96));
-    border: 1.5px dashed rgba(15, 75, 70, 0.22);
-    display: flex;
-    justify-content: center;
-    min-height: clamp(220px, 40vw, 420px);
-    padding: 24px;
-  }
-
-  .placeholder-label {
-    color: var(--peacock-dark);
-    font-size: 0.88rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  @keyframes heroFadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(18px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .page-hero:not(.page-hero--home) .page-hero__inner {
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: clamp(56px, 8vw, 88px) max(24px, calc((100vw - 1180px) / 2)) clamp(64px, 9vw, 96px);
-    position: relative;
-    z-index: 1;
-    width: 100%;
-  }
-
-  @media (max-width: 900px) {
-    .page-hero__panel--home {
-      grid-template-columns: 1fr;
-    }
-
-    .page-hero--home .page-hero__content {
-      max-width: 100%;
-      text-align: center;
-    }
-
-    .page-hero--home p {
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .page-hero--home .eyebrow,
-    .page-hero--home .hero-actions {
-      justify-content: center;
-    }
-
-    .hero-brand-row {
-      justify-content: center;
-    }
-  }
-
-  @media (max-width: 560px) {
-    .page-hero__inner--centered {
-      gap: 28px;
-      padding-bottom: 52px;
-      padding-top: 60px;
-    }
-  }
-</style>

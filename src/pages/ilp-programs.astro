@@ -86,12 +86,7 @@ const ilpPrograms = [
     {ilpPrograms.map((program, index) => (
       <article class:list={["program-card fade-up", index % 2 === 1 && "program-card--reverse"]}>
         <div class="program-card__media">
-          <ImagePlaceholder
-            label={program.image}
-            src={program.title === "Story Writing" ? "/images/story%20writing%20image.png" : program.title === "Culinary Arts" ? "/images/culinary%20arts%20image%202.png" : program.title === "Art and Craft" ? "/images/art%20and%20craft%20image.png" : program.title === "Product Designing" ? "/images/product%20designing%20image%202.png" : program.title === "Programming" ? "/images/programming%20image.png" : program.title === "Graphic Designing" ? "/images/graphic%20designing%20image.png" : program.title === "Robotics" ? "/images/robotics%20image.png" : program.title === "Clay Modelling" ? "/images/clay%20modeling%20image.png" : program.title === "Fashion Designing" ? "/images/fashion%20designing%20image.png" : "/images/football%20image.jpg"}
-            aspectRatio="4 / 3"
-            loading="lazy"
-          />
+          <ImagePlaceholder label={program.image} aspectRatio="4 / 3" />
         </div>
         <div class="program-card__content">
           <p class="eyebrow">{program.title}</p>

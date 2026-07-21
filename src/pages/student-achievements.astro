@@ -3,25 +3,31 @@ import ImagePlaceholder from "../components/ImagePlaceholder.astro";
 import PageHero from "../components/PageHero.astro";
 import Base from "../layouts/Base.astro";
 
-// Using the three student achievement images placed in `public/images`.
 const achievements = [
   {
     title: "Story Books",
     body: "Students develop confidence through storytelling, reading, expression, and creative writing activities that strengthen imagination and communication.",
-    imageLabel: "student achievement 1",
-    imageSrc: "/images/student%20achievement%201.jpg"
+    image: "[Story Books Image]"
   },
   {
     title: "Culinary Arts",
     body: "Hands-on kitchen experiences encourage creativity, hygiene, teamwork, and practical life skills while helping students explore nutrition and presentation.",
-    imageLabel: "student achievement 2",
-    imageSrc: "/images/student%20achievement%202.jpg"
+    image: "[Culinary Arts Image]"
   },
   {
     title: "Art and Craft",
     body: "Creative projects foster innovation, visual expression, patience, and collaborative learning in a joyful and inspiring environment.",
-    imageLabel: "student achievement 3",
-    imageSrc: "/images/student%20achievement%203.png"
+    image: "[Art and Craft Image]"
+  },
+  {
+    title: "Website Development",
+    body: "Students learn digital skills by building projects, exploring design thinking, and communicating ideas through thoughtful online experiences.",
+    image: "[Website Development Image]"
+  },
+  {
+    title: "Product Designing",
+    body: "Design thinking helps students turn ideas into practical solutions through problem-solving, creativity, experimentation, and functional planning.",
+    image: "[Product Designing Image]"
   }
 ];
 ---
@@ -42,20 +48,15 @@ const achievements = [
   />
 
   <section class="achievement-list">
-    {achievements.map((item) => (
-      <article class:list={["achievement-card fade-up"]}>
-        <div class="achievement-card__media">
-          <ImagePlaceholder
-            label={item.imageLabel}
-            src={item.imageSrc}
-            aspectRatio="4 / 3"
-            loading="lazy"
-          />
-        </div>
+    {achievements.map((item, index) => (
+      <article class:list={["achievement-card fade-up", index % 2 === 1 && "achievement-card--reverse"]}>
         <div class="achievement-card__content">
           <p class="eyebrow">{item.title}</p>
           <h2>{item.title}</h2>
           <p>{item.body}</p>
+        </div>
+        <div class="achievement-card__media">
+          <ImagePlaceholder label={item.image} aspectRatio="4 / 3" />
         </div>
       </article>
     ))}
@@ -76,14 +77,16 @@ const achievements = [
     box-shadow: var(--shadow-sm);
     display: grid;
     gap: 24px;
-    grid-template-columns: minmax(240px, 0.45fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 0.8fr);
     padding: 24px;
   }
 
-  .achievement-card__media {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .achievement-card--reverse {
+    grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1fr);
+  }
+
+  .achievement-card--reverse .achievement-card__media {
+    order: 2;
   }
 
   .achievement-card__content {
@@ -91,9 +94,14 @@ const achievements = [
     gap: 10px;
   }
 
-  @media (max-width: 1000px) {
-    .achievement-card {
+  @media (max-width: 800px) {
+    .achievement-card,
+    .achievement-card--reverse {
       grid-template-columns: 1fr;
+    }
+
+    .achievement-card--reverse .achievement-card__media {
+      order: 0;
     }
   }
 </style>

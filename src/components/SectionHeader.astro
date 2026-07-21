@@ -13,3 +13,23 @@ const { eyebrow, title, text } = Astro.props;
   <h2>{title}</h2>
   {text && <p>{text}</p>}
 </div>
+
+<style>
+  .section-header {
+    margin-bottom: 36px;
+    max-width: 760px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-header h2 {
+    margin-bottom: 6px;
+  }
+
+  .section-header p:not(.eyebrow) {
+    color: var(--text-secondary);
+    font-size: 1.04rem;
+    line-height: 1.75;
+    margin-top: 12px;
+  }
+</style>

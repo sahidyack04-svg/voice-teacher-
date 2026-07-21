@@ -37,31 +37,33 @@ const hasImage = Boolean(src);
 <style>
   .img-placeholder {
     align-items: center;
-    background: linear-gradient(180deg, rgba(249, 232, 236, 0.95), rgba(255, 253, 251, 0.98));
-    border: 1.5px dashed rgba(15, 111, 103, 0.18);
+    background: linear-gradient(180deg, var(--white-pure) 0%, rgba(250,249,248,0.6) 100%);
+    border: 1px solid var(--border-soft);
     border-radius: var(--radius-lg);
-    color: var(--peacock-dark);
+    box-shadow: var(--shadow-sm);
+    color: var(--text-primary);
     display: flex;
     justify-content: center;
     overflow: hidden;
-    padding: 22px;
+    padding: 10px;
     text-align: center;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    transition: border-color 0.26s ease, box-shadow 0.26s ease, transform 0.26s ease;
     width: 100%;
   }
 
   .img-placeholder:hover {
-    border-color: var(--gold-soft);
+    border-color: rgba(122,184,255,0.14);
     box-shadow: var(--shadow-md);
-    transform: translateY(-1px);
+    transform: translateY(-3px);
   }
 
   .img-placeholder__image {
     display: block;
     height: 100%;
-    object-fit: contain;
-    object-position: center;
+    object-fit: contain; /* ensure full image visible, no cropping */
     width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 8px 26px rgba(6, 34, 58, 0.06);
   }
 
   .img-placeholder__label {
