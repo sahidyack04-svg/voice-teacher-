@@ -39,13 +39,14 @@ export const brand = {
   promise: "Schools focus on class. WWIS focuses on the individual child.",
   tone: "Premium international, modern, parent-friendly, trustworthy, and welcoming.",
   colors: {
-    ink: "#1F2937",
-    navy: "#0B3D2E",
-    teal: "#2D6A4F",
-    gold: "#D4AF37",
-    coral: "#B5543A",
-    mist: "#F3F0E8",
-    paper: "#FAF9F6"
+    primary: "#163A70", // Deep Royal Blue
+    navy: "#0B2347",    // Navy Blue
+    accentPink: "#F2367A", // Bright Pink Accent
+    background: "#FFFFFF",
+    sectionBg: "#F5F9FF",
+    softAccent: "#FFF5FA",
+    card: "#FFFFFF",
+    text: "#0B2347"
   }
 };
 

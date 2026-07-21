@@ -130,13 +130,14 @@ import { contactInfo } from "../data/school";
   }
 
   .admission-form {
-    background: rgba(255, 255, 255, 0.96);
-    border: 1.5px solid var(--line-gold);
+    background: rgba(255, 255, 255, 0.98);
+    border: 1.25px solid var(--border-soft);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-sm);
     margin: 0 auto;
     max-width: 860px;
     padding: 32px;
+    background: linear-gradient(180deg, var(--card-bg), rgba(255,255,255,0.6));
   }
 
   .form-grid {
@@ -151,15 +152,15 @@ import { contactInfo } from "../data/school";
   }
 
   label span {
-    color: var(--emerald);
+    color: var(--text-primary);
     font-weight: 700;
   }
 
   input,
   select,
   textarea {
-    background: var(--ivory);
-    border: 1px solid var(--line);
+    background: var(--soft-white);
+    border: 1px solid var(--border-soft);
     border-radius: var(--radius-sm);
     font: inherit;
     padding: 12px 14px;
@@ -171,24 +172,29 @@ import { contactInfo } from "../data/school";
   }
 
   .submit-button {
-    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    background: linear-gradient(135deg, var(--royal-blue) 0%, var(--navy-blue) 100%);
     border: 0;
     border-radius: var(--radius-pill);
-    color: var(--emerald);
+    color: var(--white-pure);
     cursor: pointer;
     font-weight: 800;
     margin-top: 22px;
     padding: 14px 24px;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
   }
 
+  .submit-button:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+
   .form-note {
-    color: var(--muted);
+    color: var(--text-muted);
     font-size: 0.95rem;
     margin-top: 12px;
   }
 
   .form-note.is-error {
-    color: #b23a3a;
+    color: var(--color-error);
+    font-weight: 700;
   }
 
   @media (max-width: 760px) {
