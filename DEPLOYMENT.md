@@ -1,6 +1,6 @@
 # WWIS Website Deployment Guide
 
-**Live URL:** https://worldnews2025.vercel.app  
+**Live URL:** (production URL will be created by Vercel after pushing to main)  
 **Framework:** Astro  
 **Deployment target:** Vercel  
 **Build command:** `npm run build`  
@@ -59,12 +59,12 @@ No environment variables are required for the static website.
 
 Verify after deployment:
 
-- `https://worldnews2025.vercel.app/robots.txt`
-- `https://worldnews2025.vercel.app/llms.txt`
-- `https://worldnews2025.vercel.app/openapi.json`
-- `https://worldnews2025.vercel.app/.well-known/agent.json`
-- `https://worldnews2025.vercel.app/.well-known/agent-card.json`
-- `https://worldnews2025.vercel.app/.well-known/mcp`
+- `<production-url>/robots.txt`
+- `<production-url>/llms.txt`
+- `<production-url>/openapi.json`
+- `<production-url>/.well-known/agent.json`
+- `<production-url>/.well-known/agent-card.json`
+- `<production-url>/.well-known/mcp`
 
 ## Private Admission Form Link
 

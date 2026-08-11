@@ -2,7 +2,7 @@
   "protocolVersion": "0.2.5",
   "name": "Wisdom Wealth International School",
   "description": "Agent-readable interface for WWIS, an international school in Trichy offering Cambridge CIE, iPlay, iDiscover, iLead, ILP, admissions guidance, careers, and contact information.",
-  "url": "https://worldnews2025.vercel.app",
+  "url": "",
   "version": "1.0.0",
   "capabilities": {
     "streaming": false,
@@ -40,7 +40,7 @@
   ],
   "supported_protocols": ["openapi", "llms.txt"],
   "contact": {
-    "web": "https://worldnews2025.vercel.app/find-us",
+    "web": "/find-us",
     "email": "rootadmin@wwistrichy.com",
     "phone": "+91 81246 48888"
   }

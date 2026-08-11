@@ -1,7 +1,7 @@
 {
   "name": "WWIS Static Agent Discovery",
-  "site": "https://worldnews2025.vercel.app",
-  "openapi": "https://worldnews2025.vercel.app/openapi.json",
-  "llms": "https://worldnews2025.vercel.app/llms.txt",
+  "site": "",
+  "openapi": "/openapi.json",
+  "llms": "/llms.txt",
   "transport": "static-discovery"
 }

@@ -17,7 +17,7 @@ export type Faq = {
 
 export const schoolName = "Wisdom Wealth International School";
 export const schoolShortName = "WWIS";
-export const schoolUrl = "https://worldnews2025.vercel.app";
+export const schoolUrl = "http://localhost";
 export const bookingUrl = "/find-us";
 export const feeRequestUrl = "/find-us#admission-form";
 

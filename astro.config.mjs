@@ -2,7 +2,6 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: "https://worldnews2025.vercel.app",
   output: "static",
   integrations: [sitemap()]
 });

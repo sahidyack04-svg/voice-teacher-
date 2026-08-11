@@ -4,17 +4,17 @@ Wisdom Wealth International School (WWIS) is an international school in Trichy, 
 
 ## Website
 
-Live site: https://worldnews2025.vercel.app
+Live site: (production URL will be provided by Vercel after deployment)
 
 ## Key Pages
 
-- Home: https://worldnews2025.vercel.app/
-- About Us: https://worldnews2025.vercel.app/about
-- Our Programs: https://worldnews2025.vercel.app/our-programs
-- Our Team: https://worldnews2025.vercel.app/our-team
-- Careers: https://worldnews2025.vercel.app/careers
-- Blog: https://worldnews2025.vercel.app/blog
-- Find Us: https://worldnews2025.vercel.app/find-us
+- Home: <production-url>/
+- About Us: <production-url>/about
+- Our Programs: <production-url>/our-programs
+- Our Team: <production-url>/our-team
+- Careers: <production-url>/careers
+- Blog: <production-url>/blog
+- Find Us: <production-url>/find-us
 
 ## Programs And Learning
 
