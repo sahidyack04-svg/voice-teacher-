@@ -54,6 +54,23 @@ const achievements = [
       </article>
     ))}
   </section>
+
+  <section class="achievement-categories soft-band fade-up">
+    <div class="categories-grid">
+      <article class="category-card">
+        <h3>Storytelling and Reading Confidence</h3>
+        <p>Fostering language skills, confidence and imagination through guided storytelling and reading activities.</p>
+      </article>
+      <article class="category-card">
+        <h3>Culinary Creativity and Life Skills</h3>
+        <p>Hands-on culinary experiences that build practical life skills, creativity and teamwork.</p>
+      </article>
+      <article class="category-card">
+        <h3>Creative Expression and Artistic Growth</h3>
+        <p>Encouraging artistic exploration and self-expression through a variety of creative media and projects.</p>
+      </article>
+    </div>
+  </section>
 </Base>
 
 <style>
@@ -65,7 +82,7 @@ const achievements = [
   .achievement-card {
     align-items: center;
     background: rgba(255, 255, 255, 0.95);
-    border: 1.5px solid var(--line-gold);
+    border: 1.5px solid var(--border-soft);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-sm);
     display: grid;
@@ -97,4 +114,19 @@ const achievements = [
       order: 0;
     }
   }
+
+  .achievement-categories { padding: 32px 0; }
+  .categories-grid { display: grid; gap: 18px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .category-card { background: var(--white); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); padding: 20px; box-shadow: var(--shadow-sm); text-align: center; }
+  .category-card h3 { color: var(--royal-blue); font-size: 1.05rem; margin-bottom: 8px; }
+  .category-card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  @media (max-width: 900px) {
+    .categories-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 560px) {
+    .categories-grid { grid-template-columns: 1fr; }
+  }
+
 </style>
