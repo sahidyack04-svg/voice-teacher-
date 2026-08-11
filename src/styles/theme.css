@@ -180,23 +180,25 @@ ol {
 }
 
 .site-header {
-  background: rgba(255,255,255,0.94);
-  backdrop-filter: blur(18px);
-  border: 1px solid rgba(11,34,71,0.07);
-  border-radius: 28px;
-  margin: 12px auto 0;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(11,34,71,0.06);
+  border-radius: 22px;
+  margin: 10px auto 0;
   max-width: calc(var(--max-width) + 48px);
-  padding: 10px 16px;
+  padding: 8px 20px;
   position: sticky;
-  top: 8px;
-  z-index: 30;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 12px 38px rgba(11,34,71,0.08);
+  top: 10px;
+  z-index: 40;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 8px 30px rgba(11,34,71,0.06);
+  display: flex;
+  align-items: center;
 }
 
 .site-header.is-scrolled {
-  transform: translateY(-2px);
-  box-shadow: 0 16px 50px rgba(11,34,71,0.12);
+  transform: translateY(-1px);
+  box-shadow: 0 14px 40px rgba(11,34,71,0.10);
 }
 
 .topbar {
@@ -245,22 +247,22 @@ ol {
 
 .header-logo {
   align-items: center;
-  background: rgba(255,255,255,0.72);
-  border: 1px solid rgba(11,34,71,0.08);
-  border-radius: var(--radius-md);
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(11,34,71,0.06);
+  border-radius: 14px;
   display: flex;
   flex-shrink: 0;
-  height: 58px;
+  height: 56px;
   justify-content: center;
-  padding: 0 10px;
-  width: 150px;
+  padding: 4px 10px;
+  width: 140px;
 }
 
 .header-logo__img {
   display: block;
-  height: 100%;
+  max-height: 48px;
   object-fit: contain;
-  width: 100%;
+  width: auto;
 }
 
 .brand-mark {
@@ -274,16 +276,16 @@ ol {
 .brand-symbol {
   align-items: center;
   background: linear-gradient(135deg, var(--pink-accent-1), var(--royal-blue));
-  border-radius: 16px;
+  border-radius: 12px;
   color: var(--white-pure);
   display: inline-flex;
   font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 700;
-  height: 56px;
+  font-size: 0.98rem;
+  font-weight: 800;
+  height: 48px;
   justify-content: center;
-  letter-spacing: 0.04em;
-  width: 56px;
+  letter-spacing: 0.03em;
+  width: 48px;
   box-shadow: var(--shadow-sm);
 }
 
@@ -311,14 +313,14 @@ ol {
 }
 
 .nav-menu a {
-  border-radius: var(--radius-sm);
-  font-size: 0.92rem;
+  border-radius: calc(var(--radius-sm) - 4px);
+  font-size: 0.95rem;
   font-weight: 600;
-  padding: 10px 14px;
+  padding: 10px 16px;
   text-decoration: none;
   color: var(--text-primary);
   position: relative;
-  transition: color 0.22s ease, transform 0.22s ease;
+  transition: color 0.22s ease, transform 0.18s ease;
 }
 
 .nav-menu a::after {
@@ -331,14 +333,14 @@ ol {
   background: linear-gradient(90deg, var(--pink-accent-1), var(--royal-blue));
   transform: scaleX(0);
   transform-origin: center;
-  transition: transform 0.28s ease;
+  transition: transform 0.22s ease;
   border-radius: 4px;
   opacity: 0.95;
 }
 
 .nav-menu a:hover {
   color: var(--pink-accent-1);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .nav-menu a:hover::after,
@@ -349,7 +351,7 @@ ol {
 .nav-cta {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .btn-book,
@@ -359,18 +361,19 @@ ol {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border-radius: var(--radius-pill);
+  border-radius: 999px;
   font-weight: 700;
   text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
 }
 
 .btn-book,
 .button.button-primary {
   background: var(--accent-gradient);
   color: var(--white-pure);
-  padding: 12px 18px;
-  box-shadow: 0 12px 28px rgba(242,54,122,0.18);
+  padding: 10px 16px;
+  box-shadow: 0 10px 22px rgba(242,54,122,0.16);
+  font-size: 0.95rem;
 }
 
 .btn-book:hover,
@@ -380,10 +383,11 @@ ol {
 }
 
 .button.button-secondary {
-  background: rgba(255,255,255,0.92);
+  background: rgba(255,255,255,0.96);
   border: 1px solid var(--border-soft);
   color: var(--text-primary);
-  padding: 11px 18px;
+  padding: 10px 16px;
+  font-size: 0.92rem;
 }
 
 .button.button-secondary:hover {
@@ -392,17 +396,17 @@ ol {
 }
 
 .nav-toggle {
-  background: rgba(255,255,255,0.95);
-  border: 1px solid rgba(11,34,71,0.12);
-  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.98);
+  border: 1px solid rgba(11,34,71,0.10);
+  border-radius: 12px;
   color: var(--text-primary);
   cursor: pointer;
   display: none;
   font-family: var(--font-body);
   font-size: 0.92rem;
-  font-weight: 600;
-  padding: 10px 14px;
-  transition: background 0.2s ease, transform 0.2s ease;
+  font-weight: 700;
+  padding: 8px 12px;
+  transition: background 0.18s ease, transform 0.18s ease;
 }
 
 .nav-toggle:hover {
@@ -590,7 +594,8 @@ ol {
 @media (max-width: 760px) {
   .nav {
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 10px;
+    padding: 8px 6px;
   }
 
   .nav-menu {
@@ -606,16 +611,17 @@ ol {
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-top: 12px;
+    margin-top: 10px;
   }
 
   .nav-menu a {
     width: 100%;
     text-align: center;
+    padding: 12px 16px;
   }
 
   .page-hero {
-    padding-top: 48px;
-    padding-bottom: 48px;
+    padding-top: 36px;
+    padding-bottom: 36px;
   }
 }
