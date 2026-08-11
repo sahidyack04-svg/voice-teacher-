@@ -49,22 +49,6 @@
   --ivory-surface: var(--ivory-bg);
   --light-blue-bg: var(--ivory-bg);
 
-  /* Legacy token mappings */
-  --royal: var(--royal-blue);
-  --teal: var(--royal-blue);
-  --peacock: var(--royal-blue);
-  --peacock-dark: var(--navy-blue);
-  --gold: var(--royal-blue);
-  --gold-dark: var(--navy-blue);
-  --gold-light: rgba(22,58,112,0.06);
-  --emerald: var(--text-primary);
-  --ivory: var(--white-pure);
-  --ivory-2: var(--ivory-bg);
-  --ivory-3: var(--soft-accent);
-  --line-gold: var(--border-soft);
-  --line: var(--border-soft);
-  --gold-text: var(--white-pure);
-  --muted: var(--text-muted);
 
   /* Typography */
   --font-display: "Poppins", "Plus Jakarta Sans", "Manrope", sans-serif;
